@@ -1,10 +1,10 @@
-import Login from "../pages/Login/Login";
-import Register from "../pages/Register/Register"; 
-import ResetPassword from "../pages/ResetPassword/ResetPassword";
-import LoginSuccess from "../pages/LoginSucsess/LoginSuccess";
-import Page1 from "../pages/LoginSucsess/Page1";
-import Page2 from "../pages/Page2/Page2";
-import Page3 from "../pages/LoginSucsess/Page3";
+import Login from "../pages/Login/Login.js";
+import Register from "../pages/Register/Register.js"; 
+import ResetPassword from "../pages/ResetPassword/ResetPassword.js";
+import LoginSuccess from "../pages/LoginSucsess/LoginSuccess.js";
+import Page1 from "../pages/LoginSucsess/Page1.js";
+import Page2 from "../pages/Page2/Page2.js";
+import Page3 from "../pages/LoginSucsess/Page3.js";
 
 const publicRoutes = [
     { path: '/', component: Login, layout: null},

@@ -2,25 +2,26 @@ import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
-import { useEffect } from "react";
 import { Row, Col } from "antd";
 import Banner from "../../assets/images/Banner-login.png";
 import SuperShipLogo from "../../assets/images/SuperShip-Logo.png";
 import TabTitle from "../TapTitle";
 import React from "react";
+import { useEffect } from "react";
 
 const Login = () => {
   TabTitle("Login");
 
-  const navigate = useNavigate();
-
+  var navigate = useNavigate();
+  var adminUsernamelocal = "dzzshasddf";
+  var adminPasswordlocal = "zndkeadeeqwrmf";
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
-    const adminPassword = values.password;
-    const adminUsername = values.username;
+    var adminPassword = values.password;
+    var adminUsername = values.username;
     if (adminPassword === "123456" && adminUsername === "thanhan") {
       navigate("/LoginSuccess");
-      localStorage.setItem("dzzshasddf", JSON.stringify("zndkeadeeqwrmf"));
+      localStorage.setItem(adminUsernamelocal,JSON.stringify(adminPasswordlocal));
     } else if (adminPassword !== "123456" && adminUsername === "thanhan") {
       alert("bạn nhập sai Password");
     } else if (adminPassword === "123456" && adminUsername !== "thanhan") {
@@ -30,13 +31,18 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
+
+  const refreshPage = () => {
     const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
     console.log(getLocalUsername);
-    if (getLocalUsername === "zndkeadeeqwrmf") {
+    if (getLocalUsername === adminPasswordlocal) {
       navigate("/LoginSuccess");
     }
-  }, []);
+  };
+
+  useEffect(refreshPage,[])
+
+
 
   return (
     <>
