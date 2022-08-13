@@ -5,7 +5,7 @@ function LoginSuccess() {
   const navigatea = useNavigate();
   useEffect(() => {
     navigatea("/LoginSuccess");
-  });
+  },[]);
   return (<h1>LoginSuccess233232</h1>);
 }
 
