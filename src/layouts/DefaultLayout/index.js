@@ -22,6 +22,10 @@ function DefaultLayout({ children }) {
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
+  const handleLogout = () => {
+    localStorage.setItem("dzzshasddf", JSON.stringify("0"));
+    console.log("0");
+  };
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -89,7 +93,11 @@ function DefaultLayout({ children }) {
               {
                 key: "0",
                 icon: <BankOutlined />,
-                label: <Link to="/">Log Out</Link>,
+                label: (
+                  <Link to="/" onClick={() => handleLogout()}>
+                    Log Out
+                  </Link>
+                ),
               },
             ]}
           />
@@ -104,7 +112,9 @@ function DefaultLayout({ children }) {
         >
           {children}
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+        <Footer style={{ textAlign: "center" }}>
+          Ant Design ©2018 Created by Ant UED
+        </Footer>
       </Layout>
     </Layout>
   );

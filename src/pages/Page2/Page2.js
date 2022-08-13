@@ -5,8 +5,21 @@ import { Link } from "react-router-dom";
 import { Button, Form, Input } from "antd";
 import React from "react";
 import axios from "axios";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Page2 = () => {
+  const navigate = useNavigate();
+  const refreshPagechild = () => {
+    const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
+    console.log(getLocalUsername);
+    if (getLocalUsername !== "zndkeadeeqwrmf") {
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    refreshPagechild();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   TabTitle("Register");
 
   const [form] = Form.useForm();

@@ -1,6 +1,9 @@
 import { Select, Form, Button } from "antd";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 const { Option } = Select;
+
 
 const App = () => {
   const cityData = ["HàNội", "HồChíMinh"];
@@ -22,22 +25,22 @@ const App = () => {
   };
 
   const [districts, setdistricts] = useState([]);
-  const [district, setdistrict] = useState('');
+  const [district, setdistrict] = useState("");
   const [wards, setwards] = useState([]);
-  const [ward, setward] = useState('');
+  const [ward, setward] = useState("");
 
   const handleCityChange = (value) => {
     setdistricts(districtData[value]);
     // setdistrict(districtData[value][0]);
-    setdistrict('')
-    setward('')
+    setdistrict("");
+    setward("");
   };
 
   const ondistrictChange = (value) => {
-    setwards(wardData[value])
+    setwards(wardData[value]);
     // setward(wardData[value][0])
-    setdistrict(value)
-    setward('')
+    setdistrict(value);
+    setward("");
   };
 
   const onwardChange = (value) => {
@@ -47,10 +50,24 @@ const App = () => {
   const onFinish = (values) => {
     console.log(values);
   };
+
+
+  const navigate = useNavigate();
+  const refreshPagechild = () => {
+    const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
+    console.log(getLocalUsername);
+    if (getLocalUsername !== "zndkeadeeqwrmf") {
+      navigate("/");
+    }
+  };
+  useEffect(() => {
+    refreshPagechild();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <>
       <Form name="Makeeee" onFinish={onFinish}>
-        <Form.Item name='City' >
+        <Form.Item name="City">
           <Select
             style={{
               width: 120,
@@ -63,7 +80,7 @@ const App = () => {
           </Select>
         </Form.Item>
 
-        <Form.Item name='district'>
+        <Form.Item name="district">
           <Select
             style={{
               width: 120,
@@ -77,7 +94,7 @@ const App = () => {
           </Select>
         </Form.Item>
 
-        <Form.Item name='ward'>
+        <Form.Item name="ward">
           <Select
             style={{
               width: 120,
