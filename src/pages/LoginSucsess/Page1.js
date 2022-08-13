@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 const { Option } = Select;
 
-
 const App = () => {
   const cityData = ["HàNội", "HồChíMinh"];
   const districtData = {
@@ -50,7 +49,6 @@ const App = () => {
   const onFinish = (values) => {
     console.log(values);
   };
-
 
   const navigate = useNavigate();
   const refreshPagechild = () => {

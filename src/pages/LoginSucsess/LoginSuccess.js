@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
 function LoginSuccess() {
   const navigate = useNavigate();
   const refreshPagechild = () => {
@@ -13,7 +12,7 @@ function LoginSuccess() {
   };
   useEffect(() => {
     refreshPagechild();
-  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return <h1>LoginSuccess233232</h1>;
 }
 
