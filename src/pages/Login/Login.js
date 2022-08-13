@@ -13,15 +13,13 @@ const Login = () => {
   TabTitle("Login");
 
   var navigate = useNavigate();
-  var adminUsernamelocal = "dzzshasddf";
-  var adminPasswordlocal = "zndkeadeeqwrmf";
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
     var adminPassword = values.password;
     var adminUsername = values.username;
     if (adminPassword === "123456" && adminUsername === "thanhan") {
       navigate("/LoginSuccess");
-      localStorage.setItem(adminUsernamelocal,JSON.stringify(adminPasswordlocal));
+      localStorage.setItem("dzzshasddf", JSON.stringify("zndkeadeeqwrmf"));
     } else if (adminPassword !== "123456" && adminUsername === "thanhan") {
       alert("bạn nhập sai Password");
     } else if (adminPassword === "123456" && adminUsername !== "thanhan") {
@@ -31,17 +29,17 @@ const Login = () => {
     }
   };
 
-
   const refreshPage = () => {
     const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
     console.log(getLocalUsername);
-    if (getLocalUsername === adminPasswordlocal) {
+    if (getLocalUsername === 'zndkeadeeqwrmf') {
       navigate("/LoginSuccess");
+    } else {
+      navigate("/");
     }
   };
 
-  useEffect(refreshPage,[])
-
+  useEffect(() => {refreshPage()}, []);// eslint-disable-line react-hooks/exhaustive-deps
 
 
   return (
