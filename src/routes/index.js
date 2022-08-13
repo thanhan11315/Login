@@ -8,12 +8,12 @@ import Page3 from "../pages/LoginSucsess/Page3.js";
 
 const publicRoutes = [
     { path: '/', component: Login, layout: null},
-    { path: '/Register', component: Register, layout: null},
-    { path: '/ResetPassword', component: ResetPassword, layout: null},
-    { path: '/LoginSuccess', component: LoginSuccess,},
-    { path: '/Page1', component: Page1,},
-    { path: '/Page2', component: Page2,},
-    { path: '/Page3', component: Page3,},
+    { path: '/register', component: Register, layout: null},
+    { path: '/resetPassword', component: ResetPassword, layout: null},
+    { path: '/loginSuccess', component: LoginSuccess,},
+    { path: '/page1', component: Page1,},
+    { path: '/page2', component: Page2,},
+    { path: '/page3', component: Page3,},
 ]
 
 const privateRoutes = [

@@ -44,17 +44,17 @@ function DefaultLayout({ children }) {
             {
               key: "1",
               icon: <UserOutlined />,
-              label: <Link to="/Page1">Page1</Link>,
+              label: <Link to="/page1">Page1</Link>,
             },
             {
               key: "2",
               icon: <VideoCameraOutlined />,
-              label: <Link to="/Page2">Page2</Link>,
+              label: <Link to="/page2">Page2</Link>,
             },
             {
               key: "3",
               icon: <UploadOutlined />,
-              label: <Link to="/Page3">Page3</Link>,
+              label: <Link to="/page3">Page3</Link>,
             },
           ]}
         />
@@ -74,17 +74,17 @@ function DefaultLayout({ children }) {
               {
                 key: "1",
                 icon: <VideoCameraOutlined />,
-                label: <Link to="/Page1">Page2</Link>,
+                label: <Link to="/page1">Page2</Link>,
               },
               {
                 key: "2",
                 icon: <ExpandOutlined />,
-                label: <Link to="/Page2">Tạo Đơn Hàng</Link>,
+                label: <Link to="/page2">Tạo Đơn Hàng</Link>,
               },
               {
                 key: "3",
                 icon: <UploadOutlined />,
-                label: <Link to="/Page3">Page3</Link>,
+                label: <Link to="/page3">Page3</Link>,
               },
               {
                 key: "0",
