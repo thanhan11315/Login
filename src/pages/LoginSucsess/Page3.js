@@ -126,7 +126,6 @@ function Page3() {
       <Form.Item
         label="Province"
         name="province"
-        value={province}
         rules={[{ required: true }]}
       >
         <Select
@@ -154,7 +153,6 @@ function Page3() {
       <Form.Item
         label="District"
         name="distrist"
-        value={district}
         rules={[{ required: true }]}
       >
         <Select
@@ -181,11 +179,11 @@ function Page3() {
       <Form.Item
         label="Commune"
         name="commune"
-        value={commune}
         rules={[{ required: true }]}
       >
         <Select
           style={{ width: "100%" }}
+          value={commune}
           showSearch
           placeholder="Select a distrist"
           optionFilterProp="children"
