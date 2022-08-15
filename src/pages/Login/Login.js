@@ -8,9 +8,40 @@ import SuperShipLogo from "../../assets/images/SuperShip-Logo.png";
 import TabTitle from "../TapTitle";
 import React from "react";
 import { useEffect } from "react";
+import { message } from "antd";
 
 const Login = () => {
   TabTitle("Login");
+
+  const passWordWarning = () => {
+    message.error({
+      content: "Bạn Nhập sai Passwork",
+      className: "custom-class",
+      style: {
+        marginTop: "20vh",
+      },
+    });
+  };
+
+  const userNameWarning = () => {
+    message.error({
+      content: "Bạn Nhập sai UserName",
+      className: "custom-class",
+      style: {
+        marginTop: "20vh",
+      },
+    });
+  };
+
+  const userPassWordWarning = () => {
+    message.error({
+      content: "Bạn Nhập sai User Name và PassWord",
+      className: "custom-class",
+      style: {
+        marginTop: "20vh",
+      },
+    });
+  };
 
   var navigate = useNavigate();
   const onFinish = (values) => {
@@ -21,25 +52,27 @@ const Login = () => {
       navigate("/loginSuccess");
       localStorage.setItem("dzzshasddf", JSON.stringify("zndkeadeeqwrmf"));
     } else if (adminPassword !== "123456" && adminUsername === "thanhan") {
-      alert("bạn nhập sai Password");
+      passWordWarning();
     } else if (adminPassword === "123456" && adminUsername !== "thanhan") {
-      alert("bạn nhập sai Username");
+      userNameWarning();
     } else if (adminPassword !== "123456" && adminUsername !== "thanhan") {
-      alert("bạn nhập sai Passwork và Username");
+      userPassWordWarning();
     }
   };
 
   const refreshPage = () => {
     const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
     console.log(getLocalUsername);
-    if (getLocalUsername === 'zndkeadeeqwrmf') {
+    if (getLocalUsername === "zndkeadeeqwrmf") {
       navigate("/loginSuccess");
     } else {
       navigate("/");
     }
   };
 
-  useEffect(() => {refreshPage()}, []);// eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    refreshPage();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

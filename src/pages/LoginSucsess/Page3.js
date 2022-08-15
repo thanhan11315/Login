@@ -8,12 +8,12 @@ const { Option } = Select;
 
 function Page3() {
   const [provinces, setprovinces] = useState([]);
-  const [province, setprovince] = useState("");
+  // const [province, setprovince] = useState("");
   const [districts, setdistricts] = useState([]);
-  const [districtid, setdistrictid] = useState("01");
+  const [districtid, setdistrictid] = useState("");
   const [district, setdistrict] = useState("");
   const [communes, setcommunes] = useState([]);
-  const [communid, setcommunid] = useState("767");
+  const [communid, setcommunid] = useState("");
   const [commune, setcommune] = useState("");
 
   console.log(provinces);
@@ -39,14 +39,13 @@ function Page3() {
 
   const onChangeprovince = (value) => {
     console.log(`selected ${value}`);
-    setprovince(districts.province);
+    // setprovince(provinces.name);
     setdistrictid(value);
-    setdistrict("");
+    setdistrict("")
     setcommune("");
   };
 
   const onSearchprovince = (value) => {
-    console.log("search:", value);
     console.log("search:", value);
   };
 
@@ -68,7 +67,7 @@ function Page3() {
   //district
 
   const onChangedistrict = (value) => {
-    setdistrict(communes.district);
+    setdistrict(districts.name);
     setcommunid(value);
     setcommune("");
   };
@@ -123,21 +122,19 @@ function Page3() {
 
   return (
     <>
-      <Form.Item
-        label="Province"
-        name="province"
-        rules={[{ required: true }]}
-      >
+      <Form.Item label="Province" name="province" rules={[{ required: true }]}>
         <Select
-          value={province}
           style={{ width: "100%" }}
           showSearch
           placeholder="Select a province"
-          optionFilterProp="children"
+          // optionFilterProp="children"
           onChange={onChangeprovince}
           onSearch={onSearchprovince}
-          filterOption={(input, option) =>
-            option.children.toLowerCase().includes(input.toLowerCase())
+          filterOption={(input, option) => option.children.includes(input)}
+          filterSort={(optionA, optionB) =>
+            optionA.children
+              .toLowerCase()
+              .localeCompare(optionB.children.toLowerCase())
           }
         >
           {provinces.map((province, key) => {
@@ -150,24 +147,23 @@ function Page3() {
         </Select>
       </Form.Item>
 
-      <Form.Item
-        label="District"
-        name="distrist"
-        rules={[{ required: true }]}
-      >
+      <Form.Item label="District" name="distrist" rules={[{ required: true }]}>
         <Select
           value={district}
           style={{ width: "100%" }}
           showSearch
           placeholder="Select a distrist"
-          optionFilterProp="children"
+          // optionFilterProp="children"
           onChange={onChangedistrict}
           onSearch={onSearchdistrict}
-          filterOption={(input, option) =>
-            option.children.toLowerCase().includes(input.toLowerCase())
+          filterOption={(input, option) => option.children.includes(input)}
+          filterSort={(optionA, optionB) =>
+            optionA.children
+              .toLowerCase()
+              .localeCompare(optionB.children.toLowerCase())
           }
         >
-          {districts.map((district, key) => {
+          {districts === undefined ? '' : districts.map((district, key) => {
             return (
               <Option key={key} value={district.code}>
                 {district.name}
@@ -176,24 +172,23 @@ function Page3() {
           })}
         </Select>
       </Form.Item>
-      <Form.Item
-        label="Commune"
-        name="commune"
-        rules={[{ required: true }]}
-      >
+      <Form.Item label="Commune" name="commune" rules={[{ required: true }]}>
         <Select
           style={{ width: "100%" }}
           value={commune}
           showSearch
           placeholder="Select a distrist"
-          optionFilterProp="children"
+          // optionFilterProp="children"
           onChange={onChangecommune}
           onSearch={onSearchcommune}
-          filterOption={(input, option) =>
-            option.children.toLowerCase().includes(input.toLowerCase())
+          filterOption={(input, option) => option.children.includes(input)}
+          filterSort={(optionA, optionB) =>
+            optionA.children
+              .toLowerCase()
+              .localeCompare(optionB.children.toLowerCase())
           }
         >
-          {communes.map((commune, key) => {
+          { communes === undefined ? '' : communes.map((commune, key) => {
             return (
               <Option key={key} value={commune.code}>
                 {commune.name}

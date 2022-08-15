@@ -3,22 +3,33 @@ import TabTitle from "../TapTitle";
 import SuperShipLogo from "../../assets/images/SuperShip-Logo.png";
 import Page3 from "../LoginSucsess/Page3";
 import { Link, useNavigate } from "react-router-dom";
-import { AutoComplete, Button, Checkbox, Form, Input, Select } from "antd";
-import React, { useState } from "react";
+import { Button, Checkbox, Form, Input, Select } from "antd";
+import React from "react";
+import { message } from "antd";
 const { Option } = Select;
 
 const Register = () => {
+  
   TabTitle("Register");
+
+  const success = () => {
+    message.success({
+      content: 'Bạn đã đăng kí thành công',
+      className: 'custom-class',
+      style: {
+        marginTop: '40vh',
+      },
+    });
+  };
 
   const [form] = Form.useForm();
 
   const navigate = useNavigate();
 
-
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
-    alert("Bạn đã đăng kí thành công");
-    navigate("/")
+    success()
+    setTimeout(() => navigate("/"), 3000);
   };
 
   const prefixSelector = (
@@ -28,28 +39,10 @@ const Register = () => {
           width: 70,
         }}
       >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
+        <Option value="84">+84</Option>
       </Select>
     </Form.Item>
   );
-
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(
-        [".com", ".org", ".net"].map((domain) => `${value}${domain}`)
-      );
-    }
-  };
-
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
 
   return (
     <>
@@ -68,7 +61,7 @@ const Register = () => {
             name="register"
             onFinish={onFinish}
             initialValues={{
-              prefix: "86",
+              prefix: "84",
             }}
             scrollToFirstError
           >
@@ -165,31 +158,18 @@ const Register = () => {
               />
             </Form.Item>
 
-            <Form.Item name="website" label="Website">
-              <AutoComplete
-                options={websiteOptions}
-                onChange={onWebsiteChange}
-                placeholder="website"
-              >
-                <Input />
-              </AutoComplete>
-            </Form.Item>
-
             <Form.Item
-              name="gender"
-              label="Gender"
+              name="full name"
+              label="Full Name"
               rules={[
                 {
                   required: true,
-                  message: "Please select gender!",
+                  message: "Please input your company!",
+                  whitespace: true,
                 },
               ]}
             >
-              <Select placeholder="select your gender">
-                <Option value="male">Male</Option>
-                <Option value="female">Female</Option>
-                <Option value="other">Other</Option>
-              </Select>
+              <Input />
             </Form.Item>
 
             <Form.Item
