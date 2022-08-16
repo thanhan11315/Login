@@ -134,8 +134,8 @@ function Page3() {
     <>
       {/* addresses */}
       <Form.Item
-        label="Province"
-        name="province1"
+        label="address"
+        name="address"
         rules={[{ required: true }]}
         style={{ width: "100%" }}
       >
@@ -162,9 +162,6 @@ function Page3() {
                 );
               })}
         </Select>
-      </Form.Item>
-
-      <Form.Item label="District"  rules={[{ required: true }]}>
         <Select
           value={district}
           style={{ width: "100%" }}
@@ -190,8 +187,6 @@ function Page3() {
                 );
               })}
         </Select>
-      </Form.Item>
-      <Form.Item label="Commune" name="commune1" rules={[{ required: true }]}>
         <Select
           style={{ width: "100%" }}
           value={commune}

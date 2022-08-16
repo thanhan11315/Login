@@ -22,17 +22,29 @@ const Register = () => {
       },
     });
   };
+  const error = () => {
+    message.error({
+      content: "Vui Lòng Nhập Địa Chỉ",
+      className: "custom-class",
+      style: {
+        marginTop: "20vh",
+      },
+    });
+  };
 
   const [form] = Form.useForm();
 
   const navigate = useNavigate();
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-    var valuesFinish = { ...address, ...values };
-    console.log(valuesFinish);
-    success();
-    setTimeout(() => navigate("/"), 3000);
+    if (!address) {
+      error();
+    } else {
+      var valuesFinish = { ...address, ...values };
+      console.log(valuesFinish);
+      success();
+      setTimeout(() => navigate("/"), 3000);
+    }
   };
 
   const prefixSelector = (
@@ -56,7 +68,7 @@ const Register = () => {
   const [communes, setcommunes] = useState([]);
   const [communid, setcommunid] = useState("");
   const [commune, setcommune] = useState("");
-  const [address, setaddress] = useState([]);
+  const [address, setaddress] = useState("");
 
   console.log(provinces);
   console.log(districts);
@@ -84,6 +96,7 @@ const Register = () => {
     setdistrictid(value);
     setdistrict("");
     setcommune("");
+    setaddress("");
   };
 
   const onSearchprovince = (value) => {
@@ -114,6 +127,7 @@ const Register = () => {
     setdistrict(districtO[0].name);
     setcommunid(value);
     setcommune("");
+    setaddress("");
   };
 
   const onSearchdistrict = (value) => {
@@ -201,6 +215,12 @@ const Register = () => {
                   required: true,
                   message: "Please input your password!",
                 },
+                {
+                  type:'string',
+                  min: 6,
+                  max: 16,
+                  message: "Please confirm your password! min 6 max 16",
+                },
               ]}
               hasFeedback
             >
@@ -250,106 +270,126 @@ const Register = () => {
             </Form.Item>
 
             {/* addresses */}
-            <Form.Item
-              label="Province"
-              Name="province"
-              rules={[{ required: true }]}
-              style={{ width: "100%" }}
-            >
-              <Select
-                showSearch
-                placeholder="Select a province"
-                // optionFilterProp="children"
-                onChange={onChangeprovince}
-                onSearch={onSearchprovince}
-                filterOption={(input, option) =>
-                  option.children.includes(input)
-                }
-                filterSort={(optionA, optionB) =>
-                  optionA.children
-                    .toLowerCase()
-                    .localeCompare(optionB.children.toLowerCase())
-                }
+            <div className="boxfake">
+              <p>*</p>
+              <Form.Item
+                label="Province"
+                rules={[{ required: true }]}
+                style={{ width: "100%" }}
               >
-                {provinces === undefined
-                  ? ""
-                  : provinces.map((province, key) => {
-                      return (
-                        <Option key={key} value={province.code}>
-                          {province.name}
-                        </Option>
-                      );
-                    })}
-              </Select>
-            </Form.Item>
+                <Select
+                  showSearch
+                  placeholder="Select a province"
+                  optionFilterProp="children"
+                  onChange={onChangeprovince}
+                  onSearch={onSearchprovince}
+                  filterOption={(input, option) =>
+                    option.children.includes(input)
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.children
+                      .toLowerCase()
+                      .localeCompare(optionB.children.toLowerCase())
+                  }
+                >
+                  {provinces === undefined
+                    ? ""
+                    : provinces.map((province, key) => {
+                        return (
+                          <Option key={key} value={province.code}>
+                            {province.name}
+                          </Option>
+                        );
+                      })}
+                </Select>
+              </Form.Item>
+            </div>
+
+            <div className="boxfake">
+              <p>*</p>
+              <Form.Item
+                style={{ width: "100%" }}
+                label="District"
+                rules={[{ required: true }]}
+              >
+                <Select
+                  value={district}
+                  showSearch
+                  placeholder="Select a distrist"
+                  optionFilterProp="children"
+                  onChange={onChangedistrict}
+                  onSearch={onSearchdistrict}
+                  filterOption={(input, option) =>
+                    option.children.includes(input)
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.children
+                      .toLowerCase()
+                      .localeCompare(optionB.children.toLowerCase())
+                  }
+                >
+                  {districts === undefined
+                    ? ""
+                    : districts.map((district, key) => {
+                        return (
+                          <Option key={key} value={district.code}>
+                            {district.name}
+                          </Option>
+                        );
+                      })}
+                </Select>
+              </Form.Item>
+            </div>
+            <div className="boxfake">
+              <p>*</p>
+              <Form.Item
+                style={{ width: "100%" }}
+                label="Commune"
+                rules={[{ required: true }]}
+              >
+                <Select
+                  value={commune}
+                  showSearch
+                  placeholder="Select a distrist"
+                  optionFilterProp="children"
+                  onChange={onChangecommune}
+                  onSearch={onSearchcommune}
+                  filterOption={(input, option) =>
+                    option.children.includes(input)
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.children
+                      .toLowerCase()
+                      .localeCompare(optionB.children.toLowerCase())
+                  }
+                >
+                  {communes === undefined
+                    ? ""
+                    : communes.map((commune, key) => {
+                        return (
+                          <Option key={key} value={commune.code}>
+                            {commune.name}
+                          </Option>
+                        );
+                      })}
+                </Select>
+              </Form.Item>
+            </div>
+            {/* addresses */}
 
             <Form.Item
-              label="District"
-              Name="district"
-              rules={[{ required: true }]}
+              name="street"
+              label="Street"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your street!",
+                  whitespace: true,
+                },
+              ]}
             >
-              <Select
-                value={district}
-                style={{ width: "100%" }}
-                showSearch
-                placeholder="Select a distrist"
-                // optionFilterProp="children"
-                onChange={onChangedistrict}
-                onSearch={onSearchdistrict}
-                filterOption={(input, option) =>
-                  option.children.includes(input)
-                }
-                filterSort={(optionA, optionB) =>
-                  optionA.children
-                    .toLowerCase()
-                    .localeCompare(optionB.children.toLowerCase())
-                }
-              >
-                {districts === undefined
-                  ? ""
-                  : districts.map((district, key) => {
-                      return (
-                        <Option key={key} value={district.code}>
-                          {district.name}
-                        </Option>
-                      );
-                    })}
-              </Select>
+              <Input />
             </Form.Item>
-            <Form.Item
-              rules={[{ required: true }]}
-              label="Commune"
-              Name="commune"
-            >
-              <Select
-                style={{ width: "100%" }}
-                value={commune}
-                showSearch
-                placeholder="Select a distrist"
-                // optionFilterProp="children"
-                onChange={onChangecommune}
-                onSearch={onSearchcommune}
-                filterOption={(input, option) =>
-                  option.children.includes(input)
-                }
-                filterSort={(optionA, optionB) =>
-                  optionA.children
-                    .toLowerCase()
-                    .localeCompare(optionB.children.toLowerCase())
-                }
-              >
-                {communes === undefined
-                  ? ""
-                  : communes.map((commune, key) => {
-                      return (
-                        <Option key={key} value={commune.code}>
-                          {commune.name}
-                        </Option>
-                      );
-                    })}
-              </Select>
-            </Form.Item>
-            {/* addresses */}
 
             <Form.Item
               name="phone"
@@ -363,7 +403,7 @@ const Register = () => {
                   type: "string",
                   min: 10,
                   max: 11,
-                  message: "Please input your phone number min 10 max11!",
+                  message: "Please input your phone number min 10 max 11!",
                 },
               ]}
             >

@@ -105,3 +105,13 @@ body {
 .Register-align-box .Login .link{
     color: rgb(167, 58, 58);
 }
+
+
+.Register-align-box .box .boxfake{
+  display: flex;
+  align-items: baseline;
+}
+.Register-align-box .box .boxfake p{
+  margin-right: 3px;
+  color: #ff4d4f;
+}
