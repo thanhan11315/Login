@@ -133,86 +133,105 @@ function Page3() {
   return (
     <>
       {/* addresses */}
-      <Form.Item
-        label="address"
-        name="address"
-        rules={[{ required: true }]}
-        style={{ width: "100%" }}
-      >
-        <Select
-          showSearch
-          placeholder="Select a province"
-          // optionFilterProp="children"
-          onChange={onChangeprovince}
-          onSearch={onSearchprovince}
-          filterOption={(input, option) => option.children.includes(input)}
-          filterSort={(optionA, optionB) =>
-            optionA.children
-              .toLowerCase()
-              .localeCompare(optionB.children.toLowerCase())
-          }
-        >
-          {provinces === undefined
-            ? ""
-            : provinces.map((province, key) => {
-                return (
-                  <Option key={key} value={province.code}>
-                    {province.name}
-                  </Option>
-                );
-              })}
-        </Select>
-        <Select
-          value={district}
+      <div className="boxfake">
+        <p>*</p>
+        <Form.Item
+          label="Province"
+          rules={[{ required: true }]}
           style={{ width: "100%" }}
-          showSearch
-          placeholder="Select a distrist"
-          // optionFilterProp="children"
-          onChange={onChangedistrict}
-          onSearch={onSearchdistrict}
-          filterOption={(input, option) => option.children.includes(input)}
-          filterSort={(optionA, optionB) =>
-            optionA.children
-              .toLowerCase()
-              .localeCompare(optionB.children.toLowerCase())
-          }
         >
-          {districts === undefined
-            ? ""
-            : districts.map((district, key) => {
-                return (
-                  <Option key={key} value={district.code}>
-                    {district.name}
-                  </Option>
-                );
-              })}
-        </Select>
-        <Select
+          <Select
+            showSearch
+            placeholder="Select a province"
+            optionFilterProp="children"
+            onChange={onChangeprovince}
+            onSearch={onSearchprovince}
+            filterOption={(input, option) => option.children.includes(input)}
+            filterSort={(optionA, optionB) =>
+              optionA.children
+                .toLowerCase()
+                .localeCompare(optionB.children.toLowerCase())
+            }
+          >
+            {provinces === undefined
+              ? ""
+              : provinces.map((province, key) => {
+                  return (
+                    <Option key={key} value={province.code}>
+                      {province.name}
+                    </Option>
+                  );
+                })}
+          </Select>
+        </Form.Item>
+      </div>
+
+      <div className="boxfake">
+        <p>*</p>
+        <Form.Item
           style={{ width: "100%" }}
-          value={commune}
-          showSearch
-          placeholder="Select a distrist"
-          // optionFilterProp="children"
-          onChange={onChangecommune}
-          onSearch={onSearchcommune}
-          filterOption={(input, option) => option.children.includes(input)}
-          filterSort={(optionA, optionB) =>
-            optionA.children
-              .toLowerCase()
-              .localeCompare(optionB.children.toLowerCase())
-          }
+          label="District"
+          rules={[{ required: true }]}
         >
-          {communes === undefined
-            ? ""
-            : communes.map((commune, key) => {
-                return (
-                  <Option key={key} value={commune.code}>
-                    {commune.name}
-                  </Option>
-                );
-              })}
-        </Select>
-      </Form.Item>
+          <Select
+            defaultValue={district}
+            showSearch
+            placeholder="Select a distrist"
+            optionFilterProp="children"
+            onChange={onChangedistrict}
+            onSearch={onSearchdistrict}
+            filterOption={(input, option) => option.children.includes(input)}
+            filterSort={(optionA, optionB) =>
+              optionA.children
+                .toLowerCase()
+                .localeCompare(optionB.children.toLowerCase())
+            }
+          >
+            {districts === undefined
+              ? ""
+              : districts.map((district, key) => {
+                  return (
+                    <Option key={key} value={district.code}>
+                      {district.name}
+                    </Option>
+                  );
+                })}
+          </Select>
+        </Form.Item>
+      </div>
+      <div className="boxfake">
+        <p>*</p>
+        <Form.Item
+          style={{ width: "100%" }}
+          label="Commune"
+          rules={[{ required: true }]}
+        >
+          <Select
+            defaultValue={commune}
+            showSearch
+            placeholder="Select a distrist"
+            optionFilterProp="children"
+            onChange={onChangecommune}
+            onSearch={onSearchcommune}
+            filterOption={(input, option) => option.children.includes(input)}
+            filterSort={(optionA, optionB) =>
+              optionA.children
+                .toLowerCase()
+                .localeCompare(optionB.children.toLowerCase())
+            }
+          >
+            {communes === undefined
+              ? ""
+              : communes.map((commune, key) => {
+                  return (
+                    <Option key={key} value={commune.code}>
+                      {commune.name}
+                    </Option>
+                  );
+                })}
+          </Select>
+        </Form.Item>
+      </div>
       {/* addresses */}
     </>
   );

@@ -32,13 +32,44 @@ const Register = () => {
     });
   };
 
+  const errorphone = () => {
+    message.error({
+      content: "Số điện thoại không đúng hoặc đã đăng kí",
+      className: "custom-class",
+      style: {
+        marginTop: "20vh",
+      },
+    });
+  };
+
+  const erroremail = () => {
+    message.error({
+      content: "email đã đăng kí",
+      className: "custom-class",
+      style: {
+        marginTop: "20vh",
+      },
+    });
+  };
+
   const [form] = Form.useForm();
 
   const navigate = useNavigate();
 
   const onFinish = (values) => {
+    const phonevalue = parseInt(values.phone);
+    console.log(typeof phonevalue);
+    console.log(phonevalue);
     if (!address) {
       error();
+    } else if (
+      phonevalue < 200000000 ||
+      phonevalue > 1000000000 ||
+      values.phone === "0898999907"
+    ) {
+      errorphone();
+    } else if (values.email === "thanhan11315@gmail.com") {
+      erroremail();
     } else {
       var valuesFinish = { ...address, ...values };
       console.log(valuesFinish);
@@ -216,7 +247,7 @@ const Register = () => {
                   message: "Please input your password!",
                 },
                 {
-                  type:'string',
+                  type: "string",
                   min: 6,
                   max: 16,
                   message: "Please confirm your password! min 6 max 16",
@@ -402,8 +433,8 @@ const Register = () => {
                 {
                   type: "string",
                   min: 10,
-                  max: 11,
-                  message: "Please input your phone number min 10 max 11!",
+                  max: 10,
+                  message: "Please input your phone number!",
                 },
               ]}
             >
