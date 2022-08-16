@@ -128,6 +128,7 @@ const Register = () => {
     setdistrict("");
     setcommune("");
     setaddress("");
+    setcommunes([]);
   };
 
   const onSearchprovince = (value) => {
