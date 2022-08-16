@@ -7,20 +7,22 @@ import { useState } from "react";
 const { Option } = Select;
 
 function Page3() {
+  // addreses
+
   const [provinces, setprovinces] = useState([]);
-  // const [province, setprovince] = useState("");
   const [districts, setdistricts] = useState([]);
   const [districtid, setdistrictid] = useState("");
   const [district, setdistrict] = useState("");
   const [communes, setcommunes] = useState([]);
   const [communid, setcommunid] = useState("");
   const [commune, setcommune] = useState("");
+  // const [address, setaddress] = useState([]);
 
   console.log(provinces);
   console.log(districts);
   console.log(communes);
 
-  // province
+  // provinces
   useEffect(() => {
     var provinceApi = {
       method: "get",
@@ -41,7 +43,7 @@ function Page3() {
     console.log(`selected ${value}`);
     // setprovince(provinces.name);
     setdistrictid(value);
-    setdistrict("")
+    setdistrict("");
     setcommune("");
   };
 
@@ -67,7 +69,10 @@ function Page3() {
   //district
 
   const onChangedistrict = (value) => {
-    setdistrict(districts.name);
+    var districtO = districts.filter((district) => {
+      return district.code === value;
+    });
+    setdistrict(districtO[0].name);
     setcommunid(value);
     setcommune("");
   };
@@ -94,17 +99,22 @@ function Page3() {
   //commun
 
   const onChangecommune = (value) => {
-    // var communcode = value
     var communsO = communes.filter((commune) => {
       return commune.code === value;
     });
-    console.log(communsO);
-    setcommune(communsO.name);
+    console.log(communsO[0]);
+    setcommune(communsO[0].name);
+
+    var addresscode = communsO[0];
+    delete addresscode.code;
+    // setaddress(addresscode);
   };
 
   const onSearchcommune = (value) => {
     console.log(value);
   };
+
+  // adresses
 
   // // autoLogin
   // const navigate = useNavigate();
@@ -122,9 +132,14 @@ function Page3() {
 
   return (
     <>
-      <Form.Item label="Province" name="province" rules={[{ required: true }]}>
+      {/* addresses */}
+      <Form.Item
+        label="Province"
+        name="province1"
+        rules={[{ required: true }]}
+        style={{ width: "100%" }}
+      >
         <Select
-          style={{ width: "100%" }}
           showSearch
           placeholder="Select a province"
           // optionFilterProp="children"
@@ -137,17 +152,19 @@ function Page3() {
               .localeCompare(optionB.children.toLowerCase())
           }
         >
-          {provinces.map((province, key) => {
-            return (
-              <Option key={key} value={province.code}>
-                {province.name}
-              </Option>
-            );
-          })}
+          {provinces === undefined
+            ? ""
+            : provinces.map((province, key) => {
+                return (
+                  <Option key={key} value={province.code}>
+                    {province.name}
+                  </Option>
+                );
+              })}
         </Select>
       </Form.Item>
 
-      <Form.Item label="District" name="distrist" rules={[{ required: true }]}>
+      <Form.Item label="District"  rules={[{ required: true }]}>
         <Select
           value={district}
           style={{ width: "100%" }}
@@ -163,16 +180,18 @@ function Page3() {
               .localeCompare(optionB.children.toLowerCase())
           }
         >
-          {districts === undefined ? '' : districts.map((district, key) => {
-            return (
-              <Option key={key} value={district.code}>
-                {district.name}
-              </Option>
-            );
-          })}
+          {districts === undefined
+            ? ""
+            : districts.map((district, key) => {
+                return (
+                  <Option key={key} value={district.code}>
+                    {district.name}
+                  </Option>
+                );
+              })}
         </Select>
       </Form.Item>
-      <Form.Item label="Commune" name="commune" rules={[{ required: true }]}>
+      <Form.Item label="Commune" name="commune1" rules={[{ required: true }]}>
         <Select
           style={{ width: "100%" }}
           value={commune}
@@ -188,15 +207,18 @@ function Page3() {
               .localeCompare(optionB.children.toLowerCase())
           }
         >
-          { communes === undefined ? '' : communes.map((commune, key) => {
-            return (
-              <Option key={key} value={commune.code}>
-                {commune.name}
-              </Option>
-            );
-          })}
+          {communes === undefined
+            ? ""
+            : communes.map((commune, key) => {
+                return (
+                  <Option key={key} value={commune.code}>
+                    {commune.name}
+                  </Option>
+                );
+              })}
         </Select>
       </Form.Item>
+      {/* addresses */}
     </>
   );
 }
