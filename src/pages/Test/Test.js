@@ -113,6 +113,7 @@ const Test = () => {
     var addresscode = communsO[0];
     delete addresscode.code;
     setaddress(addresscode);
+    console.log(address)
   };
 
   const onSearchcommune = (value) => {

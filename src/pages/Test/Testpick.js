@@ -117,6 +117,7 @@ const TestPick = () => {
 
   const onSearchPickcommune = (value) => {
     console.log(value);
+    console.log(Pickaddress);
   };
 
   // adresses
