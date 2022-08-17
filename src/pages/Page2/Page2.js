@@ -1,6 +1,5 @@
 import "./Page2";
 import { Alert } from "antd";
-import Testpick from "../Test/Testpick";
 import TabTitle from "../TapTitle";
 import Logo from "../../assets/images/SuperShip-Logo.png";
 import Test from "../Test/Test.js";
