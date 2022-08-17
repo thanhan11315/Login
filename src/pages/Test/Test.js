@@ -1,12 +1,15 @@
-import React from "react";
-// import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import "./Test.css";
+import TabTitle from "../TapTitle";
 import { Form, Select } from "antd";
+import React from "react";
 import axios from "axios";
 import { useState } from "react";
+import { useEffect } from "react";
 const { Option } = Select;
 
-function Page3() {
+const Test = () => {
+  TabTitle("Register");
+
   // addreses
 
   const [provinces, setprovinces] = useState([]);
@@ -16,7 +19,7 @@ function Page3() {
   const [communes, setcommunes] = useState([]);
   const [communid, setcommunid] = useState("");
   const [commune, setcommune] = useState("");
-  // const [address, setaddress] = useState([]);
+  const [address, setaddress] = useState("");
 
   console.log(provinces);
   console.log(districts);
@@ -41,10 +44,11 @@ function Page3() {
 
   const onChangeprovince = (value) => {
     console.log(`selected ${value}`);
-    // setprovince(provinces.name);
     setdistrictid(value);
     setdistrict("");
     setcommune("");
+    setaddress("");
+    setcommunes([]);
   };
 
   const onSearchprovince = (value) => {
@@ -75,6 +79,7 @@ function Page3() {
     setdistrict(districtO[0].name);
     setcommunid(value);
     setcommune("");
+    setaddress("");
   };
 
   const onSearchdistrict = (value) => {
@@ -107,7 +112,7 @@ function Page3() {
 
     var addresscode = communsO[0];
     delete addresscode.code;
-    // setaddress(addresscode);
+    setaddress(addresscode);
   };
 
   const onSearchcommune = (value) => {
@@ -115,20 +120,6 @@ function Page3() {
   };
 
   // adresses
-
-  // // autoLogin
-  // const navigate = useNavigate();
-  // const refreshPagechild = () => {
-  //   const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
-  //   console.log(getLocalUsername);
-  //   if (getLocalUsername !== "zndkeadeeqwrmf") {
-  //     navigate("/");
-  //   }
-  // };
-  // useEffect(() => {
-  //   refreshPagechild();
-  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  // // autoLogin
 
   return (
     <>
@@ -174,7 +165,7 @@ function Page3() {
           rules={[{ required: true }]}
         >
           <Select
-            defaultValue={district}
+            value={district}
             showSearch
             placeholder="Select a distrist"
             optionFilterProp="children"
@@ -207,7 +198,7 @@ function Page3() {
           rules={[{ required: true }]}
         >
           <Select
-            defaultValue={commune}
+            value={commune}
             showSearch
             placeholder="Select a distrist"
             optionFilterProp="children"
@@ -235,6 +226,6 @@ function Page3() {
       {/* addresses */}
     </>
   );
-}
+};
 
-export default Page3;
+export default Test;

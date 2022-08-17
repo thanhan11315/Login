@@ -8,6 +8,7 @@ import { message } from "antd";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import Testpick from "../Test/Testpick";
 const { Option } = Select;
 
 const Register = () => {

@@ -48,7 +48,7 @@ function DefaultLayout({ children }) {
             {
               key: "1",
               icon: <UserOutlined />,
-              label: <Link to="/page1">Page1</Link>,
+              label: <Link to="/test">Page1</Link>,
             },
             {
               key: "2",
@@ -58,7 +58,7 @@ function DefaultLayout({ children }) {
             {
               key: "3",
               icon: <UploadOutlined />,
-              label: <Link to="/page3">Page3</Link>,
+              label: <Link to="/test">Page3</Link>,
             },
           ]}
         />
@@ -78,7 +78,7 @@ function DefaultLayout({ children }) {
               {
                 key: "1",
                 icon: <VideoCameraOutlined />,
-                label: <Link to="/page1">Page2</Link>,
+                label: <Link to="/test">Page2</Link>,
               },
               {
                 key: "2",
@@ -88,7 +88,7 @@ function DefaultLayout({ children }) {
               {
                 key: "3",
                 icon: <UploadOutlined />,
-                label: <Link to="/page3">Page3</Link>,
+                label: <Link to="/test">Page3</Link>,
               },
               {
                 key: "0",
