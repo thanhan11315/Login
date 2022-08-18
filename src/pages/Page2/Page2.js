@@ -3,7 +3,7 @@ import { Alert } from "antd";
 import TabTitle from "../TapTitle";
 import Logo from "../../assets/images/SuperShip-Logo.png";
 import Test from "../Test/Test.js";
-import TestPick from "../Test/Testpick.js";
+import Testkho from "../Test/Testkho.js";
 import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { Button, Form, Input, Select, Checkbox } from "antd";
@@ -144,49 +144,26 @@ const Page2 = () => {
                 form={form}
                 name="Make"
                 onFinish={onFinish}
-                initialValues={{
-                  residence: ["zhejiang", "hangzhou", "xihu"],
-                  prefix: "86",
-                }}
                 scrollToFirstError
               >
                 <div>
                   <div>
                     <h3 className="title">Thông Tin Người Gửi</h3>
-                    <Form.Item
-                      name="pickup_phone"
-                      label="Phone Number"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input!",
-                        },
-                        {
-                          type: "string",
-                          min: 10,
-                          max: 10,
-                          message: "Please input!",
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-
-                    <TestPick />
-
-                    <Form.Item
-                      name="pickup_address"
-                      label="Địa Chỉ Người Gửi"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input !",
-                          whitespace: true,
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
+                    <div style={{ display: "flex" }}>
+                      <Form.Item
+                        name="address"
+                        label="Kho Lấy Hàng"
+                        rules={[{ required: true, message: "Please input !" }]}
+                      >
+                        <Select
+                          placeholder="Chon kho hang"
+                          allowClear
+                        >
+                          <Option>none</Option>
+                        </Select>
+                      </Form.Item>
+                      <Testkho />
+                    </div>
                   </div>
                   <div>
                     <h3 className="title">Thông Tin Người Nhận</h3>

@@ -1,9 +1,9 @@
 
-.align-box-address .box .boxfake{
+.boxfake{
     display: flex;
     align-items: baseline;
   }
-.align-box-address .box .boxfake p{
+.boxfake p{
     margin-right: 3px;
     color: #ff4d4f;
   }
