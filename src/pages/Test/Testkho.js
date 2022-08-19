@@ -1,7 +1,11 @@
 import { Button, Modal } from "antd";
 import React, { useState } from "react";
-import { Form, Input, Checkbox } from "antd";
+import { Form, Checkbox } from "antd";
 import TestPick from "./Testpick";
+import Address from "../../compoments/GlobalStyles/Address";
+import Contact from "../../compoments/GlobalStyles/Contact";
+import Phone from "../../compoments/GlobalStyles/Phone";
+import Name from "../../compoments/GlobalStyles/Name";
 const App = () => {
   const [visible, setVisible] = useState(false);
 
@@ -17,6 +21,7 @@ const App = () => {
     console.log(value);
     setVisible(false);
   };
+
   return (
     <>
       <Button type="primary" onClick={showModal}>
@@ -33,79 +38,13 @@ const App = () => {
         ]}
       >
         <Form name="register" onFinish={onFinish} scrollToFirstError>
-          <Form.Item
-            name="name"
-            label="Tên kho"
-            rules={[
-              {
-                required: true,
-                message: "Please input!",
-              },
-            ]}
-          >
-            <Input
-              style={{
-                width: "100%",
-              }}
-            />
-          </Form.Item>
+          <Name />
 
-          <Form.Item
-            name="phone"
-            label="Phone Number"
-            rules={[
-              {
-                required: true,
-                message: "Please input your phone number!",
-              },
-              {
-                type: "string",
-                min: 10,
-                max: 10,
-                message: "Please input your phone number!",
-              },
-            ]}
-          >
-            <Input
-              style={{
-                width: "100%",
-              }}
-            />
-          </Form.Item>
+          <Phone />
 
-          <Form.Item
-            name="lienlac"
-            label="Liên Lạc"
-            rules={[
-              {
-                required: true,
-                message: "Please input!",
-              },
-            ]}
-          >
-            <Input
-              style={{
-                width: "100%",
-              }}
-            />
-          </Form.Item>
+          <Contact />
 
-          <Form.Item
-            name="Diachi"
-            label="Địa Chỉ Chi Tiết"
-            rules={[
-              {
-                required: true,
-                message: "Please input!",
-              },
-            ]}
-          >
-            <Input
-              style={{
-                width: "100%",
-              }}
-            />
-          </Form.Item>
+          <Address />
 
           <TestPick />
 

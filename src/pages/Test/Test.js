@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 const { Option } = Select;
 
-const Test = () => {
+const Test = (props) => {
   TabTitle("Register");
 
   // addreses
@@ -111,9 +111,10 @@ const Test = () => {
     setcommune(communsO[0].name);
 
     var addresscode = communsO[0];
-    delete addresscode.code;
+    // delete addresscode.code;
     setaddress(addresscode);
-    console.log(address)
+    console.log(address);
+    props.callback(communsO[0]);
   };
 
   const onSearchcommune = (value) => {

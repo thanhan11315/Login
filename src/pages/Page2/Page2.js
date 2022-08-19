@@ -1,4 +1,4 @@
-import "./Page2";
+import "./Page.css";
 import { Alert } from "antd";
 import TabTitle from "../TapTitle";
 import Logo from "../../assets/images/SuperShip-Logo.png";
@@ -12,10 +12,24 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PhoneInput from "../../compoments/GlobalStyles/PhoneInput";
+import NamePickup from "../../compoments/GlobalStyles/NamePickup";
+import AddressPickup from "../../compoments/GlobalStyles/AddressPickup";
+import Product from "../../compoments/GlobalStyles/Product";
+import Amount from "../../compoments/GlobalStyles/Amount";
+import Weight from "../../compoments/GlobalStyles/Weight";
+import Value from "../../compoments/GlobalStyles/Value";
+import PickupCode from "../../compoments/GlobalStyles/PickupCode";
+import Config from "../../compoments/GlobalStyles/Config";
 
 const { Option } = Select;
 
 const Page2 = () => {
+  const getaddress = (address) => {
+    console.log(address);
+  };
+
+  console.log(<Test callback={getaddress} />);
   const navigate = useNavigate();
   const refreshPagechild = () => {
     const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
@@ -65,72 +79,68 @@ const Page2 = () => {
 
   return (
     <>
+      <Alert
+        style={{ marginBottom: "20px", marginTop: "20px" }}
+        type="warning"
+        message={
+          <>
+            <p>
+              Hiện đang có một số nền tảng giả mạo như: sps**, **sv … có chứa từ
+              khóa “SPS”, “sps” gây hiểu nhầm đối với khách hàng, giao diện đạo
+              nhái thương hiệu và logo của{" "}
+              <span style={{ fontWeight: "700" }}>SuperShip</span>.
+              <span style={{ fontWeight: "700" }}>
+                {" "}
+                SuperShip xin nhấn mạnh đây là những nền tảng giả mạo{" "}
+              </span>
+              . Quý khách hàng vui lòng không sử dụng những hệ thống này để
+              tránh những rủi ro về Hàng Hóa, Tiền Thu Hộ... Chi tiết xem tại{" "}
+              <Link to="/" style={{ fontWeight: "700" }}>
+                Đây
+              </Link>
+              .
+            </p>
+          </>
+        }
+      ></Alert>
+      <Alert
+        style={{ marginBottom: "20px" }}
+        type="info"
+        message={
+          <>
+            <p style={{ fontWeight: "700" }}>
+              Đối với Shop có nhiều Kho Lấy Hàng, trước khi Tạo Đơn Hàng thì
+              Shop vui lòng kiểm tra lại Kho Lấy Hàng Mặc Định. Nếu chưa đúng
+              với thực tế shop, Shop vui lòng chọn lại Kho Lấy Hàng Mặc Định ở
+              mục Người Dùng -> Kho Hàng (APP) hoặc Cài Đặt -> Kho Hàng (WEB).
+            </p>
+          </>
+        }
+      ></Alert>
+      <Alert
+        type="error"
+        message={
+          <>
+            <p>
+              Đơn hàng giao trễ từ 24 giờ so với thời gian cam kết mà không có
+              liên hệ, xử lý và được khách hàng chấp nhận, SuperShip bồi thường
+              lên đến 50.000 ₫/đơn hàng. Nhấn tại{" "}
+              <Link style={{ fontWeight: "700" }} to="/">
+                Đây
+              </Link>{" "}
+              để gửi yêu cầu bồi thường. Quy định điều kiện bồi thường xem tại{" "}
+              <Link style={{ fontWeight: "700" }} to="/">
+                Đây
+              </Link>
+              .
+            </p>
+          </>
+        }
+      ></Alert>
+
       <Row>
-        <Col lg={6} sm={24} xs={24}>
-          <Alert
-            style={{ marginBottom: "20px", marginTop: "20px" }}
-            type="warning"
-            message={
-              <>
-                <p>
-                  Hiện đang có một số nền tảng giả mạo như: sps**, **sv … có
-                  chứa từ khóa “SPS”, “sps” gây hiểu nhầm đối với khách hàng,
-                  giao diện đạo nhái thương hiệu và logo của{" "}
-                  <span style={{ fontWeight: "700" }}>SuperShip</span>.
-                  <span style={{ fontWeight: "700" }}>
-                    {" "}
-                    SuperShip xin nhấn mạnh đây là những nền tảng giả mạo{" "}
-                  </span>
-                  . Quý khách hàng vui lòng không sử dụng những hệ thống này để
-                  tránh những rủi ro về Hàng Hóa, Tiền Thu Hộ... Chi tiết xem
-                  tại{" "}
-                  <Link to="/" style={{ fontWeight: "700" }}>
-                    Đây
-                  </Link>
-                  .
-                </p>
-              </>
-            }
-          ></Alert>
-          <Alert
-            style={{ marginBottom: "20px" }}
-            type="info"
-            message={
-              <>
-                <p style={{ fontWeight: "700" }}>
-                  Đối với Shop có nhiều Kho Lấy Hàng, trước khi Tạo Đơn Hàng thì
-                  Shop vui lòng kiểm tra lại Kho Lấy Hàng Mặc Định. Nếu chưa
-                  đúng với thực tế shop, Shop vui lòng chọn lại Kho Lấy Hàng Mặc
-                  Định ở mục Người Dùng -> Kho Hàng (APP) hoặc Cài Đặt -> Kho
-                  Hàng (WEB).
-                </p>
-              </>
-            }
-          ></Alert>
-          <Alert
-            type="error"
-            message={
-              <>
-                <p>
-                  Đơn hàng giao trễ từ 24 giờ so với thời gian cam kết mà không
-                  có liên hệ, xử lý và được khách hàng chấp nhận, SuperShip bồi
-                  thường lên đến 50.000 ₫/đơn hàng. Nhấn tại{" "}
-                  <Link style={{ fontWeight: "700" }} to="/">
-                    Đây
-                  </Link>{" "}
-                  để gửi yêu cầu bồi thường. Quy định điều kiện bồi thường xem
-                  tại{" "}
-                  <Link style={{ fontWeight: "700" }} to="/">
-                    Đây
-                  </Link>
-                  .
-                </p>
-              </>
-            }
-          ></Alert>
-        </Col>
-        <Col lg={10} sm={24} xs={24}>
-          <div className="Register-align-box">
+        <Col lg={18} sm={24} xs={24}>
+          <div className="create-align-box">
             <div className="box">
               <div className="img">
                 <h2 className="title">Tạo Đơn Hàng</h2>
@@ -147,210 +157,90 @@ const Page2 = () => {
                 scrollToFirstError
               >
                 <div>
-                  <div>
-                    <h3 className="title">Thông Tin Người Gửi</h3>
-                    <div style={{ display: "flex" }}>
-                      <Form.Item
-                        name="address"
-                        label="Kho Lấy Hàng"
-                        rules={[{ required: true, message: "Please input !" }]}
-                      >
-                        <Select
-                          placeholder="Chon kho hang"
-                          allowClear
-                        >
-                          <Option>none</Option>
-                        </Select>
-                      </Form.Item>
-                      <Testkho />
-                    </div>
+                  <h3 className="title">Thông Tin Người Gửi</h3>
+                  <div style={{ display: "flex" }}>
+                    <Form.Item
+                      name="address"
+                      label="Kho Lấy Hàng"
+                      rules={[{ required: true, message: "Please input !" }]}
+                    >
+                      <Select placeholder="Chon kho hang" allowClear>
+                        <Option>none</Option>
+                      </Select>
+                    </Form.Item>
+                    <Testkho />
                   </div>
-                  <div>
-                    <h3 className="title">Thông Tin Người Nhận</h3>
+                </div>
+                <h3 className="title">Thông Tin Người Nhận</h3>
+                <Row>
+                  <Col lg={12} sm={24} xs={24}>
+                    <div>
+                      <NamePickup />
+                      <PhoneInput />
+                      <AddressPickup />
+                    </div>
+                  </Col>
+                  <Col lg={12} sm={24} xs={24}>
+                    <Test callback={getaddress} />
+                  </Col>
+                </Row>
+                <h3 className="title">Thông Tin Đơn Hàng</h3>
+                <Row>
+                  <Col lg={12} sm={24} xs={24}>
+                    <Product />
+
+                    <Amount />
+
+                    <Weight />
+
+                    <Value />
+
+                    <PickupCode />
+                  </Col>
+                  <Col lg={12} sm={24} xs={24}>
+                    <Form.Item name="barter" valuePropName="checked">
+                      <Checkbox checked={checkNick} onChange={onCheckboxChange}>
+                        Đổi/Lấy Hàng Về
+                      </Checkbox>
+                    </Form.Item>
 
                     <Form.Item
-                      name="name"
-                      label="Tên Người Nhận"
+                      name="note"
+                      label="Ghi Chú Khi Giao Hàng"
                       rules={[
                         {
-                          required: true,
+                          required: checkNick,
                           message: "Please input !",
                           whitespace: true,
                         },
                       ]}
                     >
+                      <Input.TextArea />
+                    </Form.Item>
+
+                    <Form.Item name="partner" label="Mã khuyến mãi">
                       <Input />
                     </Form.Item>
-                    <Form.Item
-                      name="phone"
-                      label="Phone Number"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please input!",
-                        },
-                        {
-                          type: "string",
-                          min: 10,
-                          max: 10,
-                          message: "Please input!",
-                        },
-                      ]}
-                    >
-                      <Input />
+
+                    <Config />
+                  </Col>
+                  <div className="box-create-button">
+                    <Form.Item>
+                      <Button
+                        className="create-button"
+                        type="primary"
+                        htmlType="submit"
+                      >
+                        Tạo Đơn
+                      </Button>
                     </Form.Item>
                   </div>
-
-                  <Test />
-
-                  <Form.Item
-                    name="address"
-                    label="Địa Chỉ Người Nhận"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input !",
-                        whitespace: true,
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-
-                  <h3 className="title">Thông Tin Đơn Hàng</h3>
-                  <Form.Item
-                    name="product"
-                    label="Tên Sản Phẩm"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input !",
-                        whitespace: true,
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
-                    name="amount"
-                    label="Số Tiền Thu Hộ"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input !",
-                        whitespace: true,
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-
-                  <Form.Item
-                    name="weight"
-                    label="Khối Lượng Đơn Hàng"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please input !",
-                        whitespace: true,
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-
-                  <Form.Item
-                    name="fhjkk"
-                    label="Giá trị đơn hàng"
-                    rules={[
-                      {
-                        message: "Please input !",
-                        whitespace: true,
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-
-                  <Form.Item
-                    name="fhjkeek"
-                    label="Mã Đơn Của Shop"
-                    rules={[
-                      {
-                        message: "Please input !",
-                        whitespace: true,
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-
-                  <Form.Item name="return" valuePropName="checked">
-                    <Checkbox checked={checkNick} onChange={onCheckboxChange}>
-                      Đổi/Lấy Hàng Về
-                    </Checkbox>
-                  </Form.Item>
-
-                  <Form.Item
-                    name="textArea"
-                    label="Ghi Chú Khi Giao Hàng"
-                    rules={[
-                      {
-                        required: checkNick,
-                        message: "Please input !",
-                        whitespace: true,
-                      },
-                    ]}
-                  >
-                    <Input.TextArea />
-                  </Form.Item>
-
-                  <Form.Item
-                    name="fhjkeekee"
-                    label="Mã khuyến mãi"
-                    rules={[
-                      {
-                        message: "Please input !",
-                        whitespace: true,
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-
-                  <Form.Item
-                    name="đsadsad"
-                    label="Chọn Cách Kiểm Hàng"
-                    // hasFeedback
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please select your country!",
-                      },
-                    ]}
-                  >
-                    <Select placeholder="Please select">
-                      <Option value="1">
-                        Cho Xem Hàng Nhưng Không Thử Hàng
-                      </Option>
-                      <Option value="2">Cho Thử Hàng</Option>
-                      <Option value="3">Không Cho Xem Hàng</Option>
-                    </Select>
-                  </Form.Item>
-                </div>
-                <Form.Item>
-                  <Button
-                    className="Register-button"
-                    type="primary"
-                    htmlType="submit"
-                  >
-                    Tạo Đơn
-                  </Button>
-                </Form.Item>
+                </Row>
               </Form>
             </div>
           </div>
         </Col>
+
         <Col lg={6} sm={24} xs={24}>
           <Alert
             style={{ marginBottom: "20px", marginTop: "20px" }}
