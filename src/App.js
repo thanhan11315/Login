@@ -3,8 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { publicRoutes } from "./routes/index.js";
 import React from "react";
 import "./App.css";
-import DefaultLayout from "./layouts/DefaultLayout";
-
+import DefaultLayout from "./layouts/DefaultLayout/index.js";
 
 const App = () => (
   <BrowserRouter>
