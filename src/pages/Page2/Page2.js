@@ -6,7 +6,7 @@ import Test from "../Test/Test.js";
 import Testkho from "../Test/Testkho.js";
 import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
-import { Button, Form, Input, Select, Checkbox } from "antd";
+import { Button, Form, Input, Checkbox } from "antd";
 import React from "react";
 // import axios from "axios";
 import { useEffect } from "react";
@@ -18,16 +18,23 @@ import AddressPickup from "../../compoments/GlobalStyles/AddressPickup";
 import Product from "../../compoments/GlobalStyles/Product";
 import Amount from "../../compoments/GlobalStyles/Amount";
 import Weight from "../../compoments/GlobalStyles/Weight";
-import Value from "../../compoments/GlobalStyles/Value";
 import PickupCode from "../../compoments/GlobalStyles/PickupCode";
 import Config from "../../compoments/GlobalStyles/Config";
-
-const { Option } = Select;
-
+import Warehouse from "../../compoments/GlobalStyles/Warehouses ";
+import axios from "axios";
 const Page2 = () => {
+  TabTitle("Tạo đơn hàng");
+
+  const [district, setdistrict] = useState("");
+  const [province, setprovince] = useState("");
+
   const getaddress = (address) => {
     console.log(address);
+    setdistrict(address.distrist);
+    setprovince(address.province);
   };
+
+  const getwarehouses = (warehouse) => {};
 
   console.log(<Test callback={getaddress} />);
   const navigate = useNavigate();
@@ -49,6 +56,7 @@ const Page2 = () => {
 
   const onCheckboxChange = (e) => {
     setCheckNick(e.target.checked);
+    console.log(e);
   };
 
   const onFinish = (values) => {
@@ -76,6 +84,36 @@ const Page2 = () => {
     //     console.log(error);
     //   });
   };
+
+  //  price
+
+  const [delivery, setdelivery] = useState("");
+  const [fee, setfee] = useState("");
+  const [insurance, setinsurance] = useState("");
+  const [pickup, setpickup] = useState("");
+  useEffect(() => {
+    var config = {
+      method: "get",
+      url: `https://api.mysupership.vn/v1/partner/orders/price?sender_province=Hồ Chí Minh&sender_district=Bình Chánh&receiver_province=${province}&receiver_district=${district}&weight=200&value=12000000`,
+      headers: {
+        Accept: "application/json",
+        Authorization:
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImRmMGU5NTI2Nzc5Y2Y3Nzk2ZTY3ZjllNGQzZmNkZDg0Yzk0OWY4M2IxOTQxMzM1YTQwODQ2NGQwMDU4NzNiMDM3NDAwMDM1MjRhZTZlMjJhIn0.eyJhdWQiOiIxIiwianRpIjoiZGYwZTk1MjY3NzljZjc3OTZlNjdmOWU0ZDNmY2RkODRjOTQ5ZjgzYjE5NDEzMzVhNDA4NDY0ZDAwNTg3M2IwMzc0MDAwMzUyNGFlNmUyMmEiLCJpYXQiOjE2NjAwMzY1NDgsIm5iZiI6MTY2MDAzNjU0OCwiZXhwIjoxNjkxNTcyNTQ4LCJzdWIiOiI0MTMxMSIsInNjb3BlcyI6W119.01rKRfFAVw-3G-8FLNo2TGvNVjdNZE1LaxjRqKJ7FKL2NT-s2iZS-oRnYetm3wZPVc-dDPiG3b1ptPXyN0noOcBiT5VFQaP2T_jEFZdLJeas-mL9bOtqmWnseyP6wtqjfFEI3HBSZLCgIZDSYZY8XRZdCCwq5zxXocHywfpXVoDrAPJSa64YY-nD6YJo6FThtBh_LHfdGQ51j_qH8OChyF3O0TiCUmlDD8G0K_91wtw1KgvAmn6XM5H3oCqCWZEmKqaukkXh_4rI5hlAQN-0CarkLbU0wKMmnkr_hPqdjvBeGOaCYwzB9yRGlTLf-YBBqprpvNNs4FBi1cBp7oTag___KPifAP_kyjbtn853yh05t2mdw62HnKHX4PdrUBjuR68zrBOnORXqd5ft5djdC_REbfonojqUpVhK51IOmx6RMcl13DUIlUisb3T4shJrm66lzVTSzH_tqyhqxxx7_v1vWKydQBVRYPxnoiA3P5fHPYk-KH_FMJa0IAxNojjhtl6O8u9myfYLlF-htHYjNlsn3syEKGkpfKgMEhIj9FQzHvHvgxOyVvhmK30lePZ_WvIWXOdn42vhSfNjy7p3wOqwY4fHoAiNrqnJgMRAWFJUFNcHL4Xi_zQ8f4u10sNvyg8jyA7uK-bVfGR8ghT8WKcKLPlR-6FMFoTBGpxmPyo",
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        const data = response.data.results[0];
+        setdelivery(data.delivery.name);
+        setfee(data.fee);
+        setinsurance(data.insurance);
+        setpickup(data.pickup.name);
+        console.log(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [district]);
 
   return (
     <>
@@ -158,18 +196,14 @@ const Page2 = () => {
               >
                 <div>
                   <h3 className="title">Thông Tin Người Gửi</h3>
-                  <div style={{ display: "flex" }}>
-                    <Form.Item
-                      name="address"
-                      label="Kho Lấy Hàng"
-                      rules={[{ required: true, message: "Please input !" }]}
-                    >
-                      <Select placeholder="Chon kho hang" allowClear>
-                        <Option>none</Option>
-                      </Select>
-                    </Form.Item>
-                    <Testkho />
-                  </div>
+                  <Row>
+                    <Col lg={22} sm={24} xs={24}>
+                      <Warehouse callback={getwarehouses} />
+                    </Col>
+                    <Col lg={2} sm={24} xs={24}>
+                      <Testkho />
+                    </Col>
+                  </Row>
                 </div>
                 <h3 className="title">Thông Tin Người Nhận</h3>
                 <Row>
@@ -192,8 +226,6 @@ const Page2 = () => {
                     <Amount />
 
                     <Weight />
-
-                    <Value />
 
                     <PickupCode />
                   </Col>
@@ -305,6 +337,16 @@ const Page2 = () => {
             type="error"
             message={
               <>
+                <p>Dự kiến lấy hàng : {pickup}</p>
+                <p>Dự kiến giao hàng : {delivery}</p>
+              </>
+            }
+          />
+          <Alert
+            style={{ marginBottom: "20px" }}
+            type="error"
+            message={
+              <>
                 <p>
                   {" "}
                   <div
@@ -350,7 +392,7 @@ const Page2 = () => {
                       borderRadius: "5px",
                     }}
                   >
-                    0 ₫
+                    {fee + insurance} ₫
                   </span>{" "}
                   = [1] + [2] - [3]
                 </p>
@@ -367,17 +409,32 @@ const Page2 = () => {
                   <div>
                     <b>CHI TIẾT PHÍ</b>
                   </div>
-                  Phí Giao Hàng{" "}
-                  <span
-                    style={{
-                      padding: "5px",
-                      backgroundColor: "#e33649",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    0 ₫{" "}
-                  </span>{" "}
-                  [1]
+                  <div>
+                    Phí Giao Hàng{" "}
+                    <span
+                      style={{
+                        padding: "5px",
+                        backgroundColor: "#e33649",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      {fee} ₫{" "}
+                    </span>{" "}
+                    [1]
+                  </div>
+                  <div>
+                    Phí Bảo Hiểm{" "}
+                    <span
+                      style={{
+                        padding: "5px",
+                        backgroundColor: "#e33649",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      {insurance} ₫{" "}
+                    </span>{" "}
+                    [1]
+                  </div>
                 </p>
               </>
             }
