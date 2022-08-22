@@ -113,7 +113,7 @@ const Page2 = () => {
       .catch(function (error) {
         console.log(error);
       });
-  }, [district]);
+  }, [district]);// eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
