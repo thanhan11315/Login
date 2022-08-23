@@ -1,10 +1,10 @@
 import { Form, InputNumber, Space } from "antd";
 
-const onChange = (value) => {
-  console.log("change", value);
-};
-
-function Weight() {
+function Weight(getWeight) {
+  const onChange = (value) => {
+    console.log("change", value);
+    getWeight.getWeight(value);
+  };
   return (
     <Form.Item
       name="weight"
@@ -19,7 +19,9 @@ function Weight() {
     >
       <Space style={{ width: "100%" }}>
         <InputNumber
-          defaultValue={0}
+          min={1}
+          max={50000}
+          defaultValue={""}
           formatter={(value) =>
             `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           }
@@ -27,7 +29,7 @@ function Weight() {
           onChange={onChange}
           style={{ width: "100%" }}
         />
-      </Space>{" "}
+      </Space>
     </Form.Item>
   );
 }

@@ -1,17 +1,20 @@
 import { Form, InputNumber, Space } from "antd";
 import { useState } from "react";
 
-function Amount() {
+function Amount(getAmount) {
   const [valueP, setValueP] = useState("");
 
   const onChangeAmount = (value) => {
     console.log("changed", value);
     setValueP(value);
+    getAmount.getAmount(value);
+    getAmount.getValue(value);
   };
 
   const onChangeValue = (value) => {
     console.log("change", value);
     setValueP(value);
+    getAmount.getValue(value);
   };
 
   return (
@@ -29,7 +32,9 @@ function Amount() {
       >
         <Space style={{ width: "100%" }}>
           <InputNumber
-            defaultValue={0}
+            min={0}
+            max={30000000}
+            defaultValue={""}
             formatter={(value) =>
               `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             }
@@ -41,7 +46,6 @@ function Amount() {
       </Form.Item>
       <Form.Item
         name="Value"
-        value={valueP}
         label="Giá trị đơn hàng"
         rules={[
           {
@@ -52,6 +56,9 @@ function Amount() {
       >
         <Space style={{ width: "100%" }}>
           <InputNumber
+            min={0}
+            max={30000000}
+            defaultValue={""}
             value={valueP}
             formatter={(value) =>
               `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")

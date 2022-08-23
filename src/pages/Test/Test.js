@@ -51,6 +51,7 @@ const Test = (props) => {
     setcommune("");
     setaddress("");
     setcommunes([]);
+    props.callback("");
   };
 
   const onSearchprovince = (value) => {
@@ -84,6 +85,7 @@ const Test = (props) => {
     setcommunid(value);
     setcommune("");
     setaddress("");
+    props.callback("");
   };
 
   const onSearchdistrict = (value) => {

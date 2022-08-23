@@ -28,11 +28,16 @@ const Page2 = () => {
   const [district, setdistrict] = useState("");
   const [province, setprovince] = useState("");
 
+  // price đổi Hàng 10000
+  const [returnn, setReturnn] = useState("");
+
   const getaddress = (address) => {
     console.log(address);
-    setdistrict(address.distrist);
+    setdistrict(address.district);
     setprovince(address.province);
   };
+
+  console.log(district);
 
   const getwarehouses = (warehouse) => {};
 
@@ -59,6 +64,14 @@ const Page2 = () => {
     console.log(e);
   };
 
+  useEffect(() => {
+    if (checkNick) {
+      setReturnn(10000);
+    } else {
+      setReturnn("");
+    }
+  }, [checkNick]);
+
   const onFinish = (values) => {
     console.log(values);
     var data = JSON.stringify(values);
@@ -84,6 +97,12 @@ const Page2 = () => {
     //     console.log(error);
     //   });
   };
+  // Amount
+
+  const [amountValue, setAmountValue] = useState("");
+  const getAmount = (value) => {
+    setAmountValue(value);
+  };
 
   //  price
 
@@ -91,10 +110,22 @@ const Page2 = () => {
   const [fee, setfee] = useState("");
   const [insurance, setinsurance] = useState("");
   const [pickup, setpickup] = useState("");
+  const [weight, setWeight] = useState("");
+  const [value, setValue] = useState("");
+
+  const getValue = (value) => {
+    setValue(value);
+  };
+
+  const getWeight = (value) => {
+    setWeight(value);
+  };
   useEffect(() => {
     var config = {
       method: "get",
-      url: `https://api.mysupership.vn/v1/partner/orders/price?sender_province=Hồ Chí Minh&sender_district=Bình Chánh&receiver_province=${province}&receiver_district=${district}&weight=200&value=12000000`,
+      url: `https://api.mysupership.vn/v1/partner/orders/price?sender_province=Hồ Chí Minh&sender_district=Bình Chánh&receiver_province=${province}&receiver_district=${district}&weight=${weight}&value=${
+        value ? value : 0
+      }`,
       headers: {
         Accept: "application/json",
         Authorization:
@@ -113,7 +144,7 @@ const Page2 = () => {
       .catch(function (error) {
         console.log(error);
       });
-  }, [district]);// eslint-disable-line react-hooks/exhaustive-deps
+  }, [weight, value, district, amountValue, province]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -223,9 +254,9 @@ const Page2 = () => {
                   <Col lg={12} sm={24} xs={24}>
                     <Product />
 
-                    <Amount />
+                    <Amount getAmount={getAmount} getValue={getValue} />
 
-                    <Weight />
+                    <Weight getWeight={getWeight} />
 
                     <PickupCode />
                   </Col>
@@ -363,7 +394,7 @@ const Page2 = () => {
                         borderRadius: "5px",
                       }}
                     >
-                      0 ₫
+                      {amountValue ? amountValue.toLocaleString() : 0}₫
                     </span>
                   </div>
                   <div>
@@ -392,7 +423,14 @@ const Page2 = () => {
                       borderRadius: "5px",
                     }}
                   >
-                    {fee + insurance} ₫
+                    {fee + insurance + returnn
+                      ? (
+                          (fee ? fee : 0) +
+                          (insurance ? insurance : 0) +
+                          (returnn ? returnn : 0)
+                        ).toLocaleString()
+                      : 0}{" "}
+                    ₫
                   </span>{" "}
                   = [1] + [2] - [3]
                 </p>
@@ -418,7 +456,7 @@ const Page2 = () => {
                         borderRadius: "5px",
                       }}
                     >
-                      {fee} ₫{" "}
+                      {fee ? fee.toLocaleString() : 0} ₫{" "}
                     </span>{" "}
                     [1]
                   </div>
@@ -431,9 +469,22 @@ const Page2 = () => {
                         borderRadius: "5px",
                       }}
                     >
-                      {insurance} ₫{" "}
+                      {insurance ? insurance.toLocaleString() : 0} ₫{" "}
                     </span>{" "}
-                    [1]
+                    [2]
+                  </div>
+                  <div>
+                    Phí Hàng Đổi{" "}
+                    <span
+                      style={{
+                        padding: "5px",
+                        backgroundColor: "#e33649",
+                        borderRadius: "5px",
+                      }}
+                    >
+                      {returnn ? returnn.toLocaleString() : 0} ₫{" "}
+                    </span>{" "}
+                    [2]
                   </div>
                 </p>
               </>
