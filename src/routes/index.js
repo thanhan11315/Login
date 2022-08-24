@@ -9,9 +9,9 @@ const publicRoutes = [
   { path: "/", component: Login, layout: null },
   { path: "/register", component: Register, layout: null },
   { path: "/resetPassword", component: ResetPassword, layout: null },
-  { path: "/page2", component: Page2, },
-  { path: "/test", component: Test, },
-  { path: "/loginSuccess", component: LoginSuccess, },
+  { path: "/page2", component: Page2 },
+  { path: "/test", component: Test },
+  { path: "/loginSuccess", component: LoginSuccess },
 ];
 
 const privateRoutes = [];
