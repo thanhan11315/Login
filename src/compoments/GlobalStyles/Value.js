@@ -33,4 +33,4 @@ function Value() {
   );
 }
 
-export default  Value ;
+export default Value;

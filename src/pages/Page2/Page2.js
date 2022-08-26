@@ -88,9 +88,9 @@ const Page2 = () => {
       province: province,
       commune: commune,
       address: values.address,
-      amount: values.amount,
-      value: values.Value,
-      weight: values.weight,
+      amount: amountValue,
+      value: value,
+      weight: weight,
       note: values.note,
       service: 1,
       config: values.config,
@@ -152,10 +152,18 @@ const Page2 = () => {
     setPickUpDistrict(warehouse[2]);
   };
 
+  const [provinceApi, setprovinceApi] = useState("");
+  const [districtApi, setdistrictApi] = useState("");
+
+  const getApi = (value) => {
+    setprovinceApi(value.province);
+    setdistrictApi(value.name);
+  };
+
   useEffect(() => {
     var config = {
       method: "get",
-      url: `https://api.mysupership.vn/v1/partner/orders/price?sender_province=${pickUpProvince}&sender_district=${pickUpDistrict}&receiver_province=${province}&receiver_district=${district}&weight=${weight}&value=${
+      url: `https://api.mysupership.vn/v1/partner/orders/price?sender_province=${pickUpProvince}&sender_district=${pickUpDistrict}&receiver_province=${provinceApi}&receiver_district=${districtApi}&weight=${weight}&value=${
         value ? value : 0
       }`,
       headers: {
@@ -176,7 +184,7 @@ const Page2 = () => {
       .catch(function (error) {
         console.log(error);
       });
-  }, [weight, value, district, amountValue, province, pickUpProvince]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [weight, value, districtApi, amountValue, provinceApi, pickUpProvince]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -278,7 +286,7 @@ const Page2 = () => {
                     </div>
                   </Col>
                   <Col lg={12} sm={24} xs={24}>
-                    <Test callback={getaddress} />
+                    <Test callback={getaddress} getApi={getApi} />
                   </Col>
                 </Row>
                 <h3 className="title">Thông Tin Đơn Hàng</h3>

@@ -59,11 +59,11 @@ function Amount(getAmount) {
             min={0}
             max={30000000}
             defaultValue={""}
-            value={valueP}
             formatter={(value) =>
               `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
             }
             parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+            value={valueP}
             onChange={onChangeValue}
             style={{ width: "100%" }}
           />

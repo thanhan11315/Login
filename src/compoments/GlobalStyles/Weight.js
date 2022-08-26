@@ -1,19 +1,29 @@
 import { Form, InputNumber, Space } from "antd";
+import { useEffect, useState } from "react";
 
 function Weight(getWeight) {
+  const [required, setrequired] = useState(false);
+
   const onChange = (value) => {
     console.log("change", value);
     getWeight.getWeight(value);
+    if (!value) {
+      setrequired(true);
+    }
   };
+
+  useEffect(() => {
+    getWeight.getWeight(500);
+  }, []);
+
   return (
     <Form.Item
       name="weight"
       label="Khối Lượng Đơn Hàng"
       rules={[
         {
-          required: true,
+          required: required,
           message: "Please input !",
-          whitespace: true,
         },
       ]}
     >
