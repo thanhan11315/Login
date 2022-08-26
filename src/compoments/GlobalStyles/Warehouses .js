@@ -33,7 +33,10 @@ function Warehouse(callback) {
   console.log(callback);
 
   const onChange = (value) => {
-    console.log(`selected ${value}`);
+    console.log(value);
+    const pickupAddress = value.split(", ");
+    console.log(pickupAddress);
+    callback.getwarehouses(pickupAddress);
   };
 
   const onSearch = (value) => {
@@ -61,7 +64,10 @@ function Warehouse(callback) {
           : warehouses.map((warehouse) => {
               console.log(warehouse);
               return (
-                <Option key={warehouse.code} value={warehouse.code}>
+                <Option
+                  key={warehouse.code}
+                  value={warehouse.formatted_address}
+                >
                   {warehouse.name} - {warehouse.formatted_address}
                 </Option>
               );

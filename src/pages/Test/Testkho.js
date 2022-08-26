@@ -1,13 +1,23 @@
 import { Button, Modal } from "antd";
 import React, { useState } from "react";
 import { Form, Checkbox } from "antd";
-import TestPick from "./Testpick";
+import Test from "./Test";
 import Address from "../../compoments/GlobalStyles/Address";
 import Contact from "../../compoments/GlobalStyles/Contact";
 import Phone from "../../compoments/GlobalStyles/Phone";
 import Name from "../../compoments/GlobalStyles/Name";
 const App = () => {
   const [visible, setVisible] = useState(false);
+  const [district, setdistrict] = useState("");
+  const [province, setprovince] = useState("");
+  const [commune, setcommune] = useState("");
+
+  const getaddress = (address) => {
+    console.log(address);
+    setdistrict(address.district);
+    setprovince(address.province);
+    setcommune(address.name);
+  };
 
   const showModal = () => {
     setVisible(true);
@@ -19,7 +29,17 @@ const App = () => {
 
   const onFinish = (value) => {
     console.log(value);
-    setVisible(false);
+    const data = {
+      name: value.name,
+      phone: value.phone,
+      contact: value.contact,
+      address: value.address,
+      primary: value.remember ? 1 : 0,
+      province: province,
+      district: district,
+      commune: commune,
+    };
+    console.log(data);
   };
 
   return (
@@ -46,7 +66,7 @@ const App = () => {
 
           <Address />
 
-          <TestPick />
+          <Test callback={getaddress} />
 
           <Form.Item name="remember" valuePropName="checked">
             <Checkbox>Mặc định</Checkbox>

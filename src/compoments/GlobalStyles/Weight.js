@@ -21,7 +21,7 @@ function Weight(getWeight) {
         <InputNumber
           min={1}
           max={50000}
-          defaultValue={""}
+          defaultValue={500}
           formatter={(value) =>
             `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           }

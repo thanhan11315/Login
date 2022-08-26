@@ -5,25 +5,27 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
+import Loading from "../../compoments/GlobalStyles/Loading";
 const { Option } = Select;
 
-const TestPick = () => {
+const Test = (props) => {
   TabTitle("Register");
 
   // addreses
 
-  const [Pickprovinces, setPickprovinces] = useState([]);
-  const [Pickdistricts, setPickdistricts] = useState([]);
-  const [Pickdistrictid, setPickdistrictid] = useState("");
-  const [Pickdistrict, setPickdistrict] = useState("");
-  const [Pickcommunes, setPickcommunes] = useState([]);
-  const [Pickcommunid, setPickcommunid] = useState("");
-  const [Pickcommune, setPickcommune] = useState("");
-  const [Pickaddress, setPickaddress] = useState("");
-
-  console.log(Pickprovinces);
-  console.log(Pickdistricts);
-  console.log(Pickcommunes);
+  const [provinces, setprovinces] = useState([]);
+  const [districts, setdistricts] = useState([]);
+  const [districtid, setdistrictid] = useState("");
+  const [district, setdistrict] = useState("");
+  const [communes, setcommunes] = useState([]);
+  const [communid, setcommunid] = useState("");
+  const [commune, setcommune] = useState("");
+  const [address, setaddress] = useState("");
+  const [loadingDistrict, setLoadingDistrict] = useState(false);
+  const [loadingCommune, setLoadingCommune] = useState(false);
+  console.log(provinces);
+  console.log(districts);
+  console.log(communes);
 
   // provinces
   useEffect(() => {
@@ -35,100 +37,106 @@ const TestPick = () => {
 
     axios(provinceApi)
       .then(function (response) {
-        setPickprovinces(response.data.results);
+        setprovinces(response.data.results);
       })
       .catch(function (error) {
         console.log(error);
       });
   }, []);
 
-  const onChangePickprovince = (value) => {
+  const onChangeprovince = (value) => {
     console.log(`selected ${value}`);
-    setPickdistrictid(value);
-    setPickdistrict("");
-    setPickcommune("");
-    setPickaddress("");
-    setPickcommunes([]);
+    setdistrictid(value);
+    setdistrict("");
+    setcommune("");
+    setaddress("");
+    setcommunes([]);
+    props.callback("");
   };
 
-  const onSearchPickprovince = (value) => {
+  const onSearchprovince = (value) => {
     console.log("search:", value);
   };
 
   useEffect(() => {
-    var PickdistrictApi = {
+    setLoadingDistrict(true);
+    var districtApi = {
       method: "get",
-      url: `https://api.mysupership.vn/v1/partner/areas/district?province=${Pickdistrictid}`,
+      url: `https://api.mysupership.vn/v1/partner/areas/district?province=${districtid}`,
       headers: {},
     };
-    axios(PickdistrictApi)
+    axios(districtApi)
       .then(function (response) {
-        setPickdistricts(response.data.results);
+        setdistricts(response.data.results);
+        setLoadingDistrict(false);
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, [Pickdistrictid]);
+  }, [districtid]);
 
   //district
 
-  const onChangePickdistrict = (value) => {
-    var PickdistrictO = Pickdistricts.filter((Pickdistrict) => {
-      return Pickdistrict.code === value;
+  const onChangedistrict = (value) => {
+    var districtO = districts.filter((district) => {
+      return district.code === value;
     });
-    setPickdistrict(PickdistrictO[0].name);
-    setPickcommunid(value);
-    setPickcommune("");
-    setPickaddress("");
+    setdistrict(districtO[0].name);
+    setcommunid(value);
+    setcommune("");
+    setaddress("");
+    props.callback("");
   };
 
-  const onSearchPickdistrict = (value) => {
+  const onSearchdistrict = (value) => {
     console.log("search:", value);
   };
 
   useEffect(() => {
-    var PickdistrictApi = {
+    setLoadingCommune(true);
+    var districtApi = {
       method: "get",
-      url: `https://api.mysupership.vn/v1/partner/areas/commune?district=${Pickcommunid}`,
+      url: `https://api.mysupership.vn/v1/partner/areas/commune?district=${communid}`,
       headers: {},
     };
-    axios(PickdistrictApi)
+    axios(districtApi)
       .then(function (response) {
-        setPickcommunes(response.data.results);
+        setcommunes(response.data.results);
         console.log(response.data.results);
+        setLoadingCommune(false);
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, [Pickcommunid]);
+  }, [communid]);
   //commun
 
-  const onChangePickcommune = (value) => {
-    var PickcommunsO = Pickcommunes.filter((commune) => {
+  const onChangecommune = (value) => {
+    var communsO = communes.filter((commune) => {
       return commune.code === value;
     });
-    console.log(PickcommunsO[0]);
-    setPickcommune(PickcommunsO[0].name);
+    console.log(communsO[0]);
+    setcommune(communsO[0].name);
 
-    var Pickaddresscode = PickcommunsO[0];
-    delete Pickaddresscode.code;
-    setPickaddress(Pickaddresscode);
+    var addresscode = communsO[0];
+    // delete addresscode.code;
+    setaddress(addresscode);
+    console.log(address);
+    props.callback(communsO[0]);
   };
 
-  const onSearchPickcommune = (value) => {
+  const onSearchcommune = (value) => {
     console.log(value);
-    console.log(Pickaddress);
   };
 
   // adresses
 
   return (
     <>
-      {/* addresses */}
       <div className="boxfake">
         <p>*</p>
         <Form.Item
-          label="province"
+          label="Province"
           rules={[{ required: true }]}
           style={{ width: "100%" }}
         >
@@ -136,8 +144,8 @@ const TestPick = () => {
             showSearch
             placeholder="Select a province"
             optionFilterProp="children"
-            onChange={onChangePickprovince}
-            onSearch={onSearchPickprovince}
+            onChange={onChangeprovince}
+            onSearch={onSearchprovince}
             filterOption={(input, option) => option.children.includes(input)}
             filterSort={(optionA, optionB) =>
               optionA.children
@@ -145,9 +153,9 @@ const TestPick = () => {
                 .localeCompare(optionB.children.toLowerCase())
             }
           >
-            {Pickprovinces === undefined
+            {provinces === undefined
               ? ""
-              : Pickprovinces.map((province, key) => {
+              : provinces.map((province, key) => {
                   return (
                     <Option key={key} value={province.code}>
                       {province.name}
@@ -165,30 +173,34 @@ const TestPick = () => {
           label="District"
           rules={[{ required: true }]}
         >
-          <Select
-            value={Pickdistrict}
-            showSearch
-            placeholder="Select a distrist"
-            optionFilterProp="children"
-            onChange={onChangePickdistrict}
-            onSearch={onSearchPickdistrict}
-            filterOption={(input, option) => option.children.includes(input)}
-            filterSort={(optionA, optionB) =>
-              optionA.children
-                .toLowerCase()
-                .localeCompare(optionB.children.toLowerCase())
-            }
-          >
-            {Pickdistricts === undefined
-              ? ""
-              : Pickdistricts.map((district, key) => {
-                  return (
-                    <Option key={key} value={district.code}>
-                      {district.name}
-                    </Option>
-                  );
-                })}
-          </Select>
+          {loadingDistrict ? (
+            <Loading />
+          ) : (
+            <Select
+              value={district}
+              showSearch
+              placeholder="Select a distrist"
+              optionFilterProp="children"
+              onChange={onChangedistrict}
+              onSearch={onSearchdistrict}
+              filterOption={(input, option) => option.children.includes(input)}
+              filterSort={(optionA, optionB) =>
+                optionA.children
+                  .toLowerCase()
+                  .localeCompare(optionB.children.toLowerCase())
+              }
+            >
+              {districts === undefined
+                ? ""
+                : districts.map((district, key) => {
+                    return (
+                      <Option key={key} value={district.code}>
+                        {district.name}
+                      </Option>
+                    );
+                  })}
+            </Select>
+          )}
         </Form.Item>
       </div>
       <div className="boxfake">
@@ -198,30 +210,34 @@ const TestPick = () => {
           label="Commune"
           rules={[{ required: true }]}
         >
-          <Select
-            value={Pickcommune}
-            showSearch
-            placeholder="Select a distrist"
-            optionFilterProp="children"
-            onChange={onChangePickcommune}
-            onSearch={onSearchPickcommune}
-            filterOption={(input, option) => option.children.includes(input)}
-            filterSort={(optionA, optionB) =>
-              optionA.children
-                .toLowerCase()
-                .localeCompare(optionB.children.toLowerCase())
-            }
-          >
-            {Pickcommunes === undefined
-              ? ""
-              : Pickcommunes.map((commune, key) => {
-                  return (
-                    <Option key={key} value={commune.code}>
-                      {commune.name}
-                    </Option>
-                  );
-                })}
-          </Select>
+          {loadingCommune ? (
+            <Loading />
+          ) : (
+            <Select
+              value={commune}
+              showSearch
+              placeholder="Select a distrist"
+              optionFilterProp="children"
+              onChange={onChangecommune}
+              onSearch={onSearchcommune}
+              filterOption={(input, option) => option.children.includes(input)}
+              filterSort={(optionA, optionB) =>
+                optionA.children
+                  .toLowerCase()
+                  .localeCompare(optionB.children.toLowerCase())
+              }
+            >
+              {communes === undefined
+                ? ""
+                : communes.map((commune, key) => {
+                    return (
+                      <Option key={key} value={commune.code}>
+                        {commune.name}
+                      </Option>
+                    );
+                  })}
+            </Select>
+          )}
         </Form.Item>
       </div>
       {/* addresses */}
@@ -229,4 +245,4 @@ const TestPick = () => {
   );
 };
 
-export default TestPick;
+export default Test;

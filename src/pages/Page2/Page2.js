@@ -27,6 +27,7 @@ const Page2 = () => {
 
   const [district, setdistrict] = useState("");
   const [province, setprovince] = useState("");
+  const [commune, setcommune] = useState("");
 
   // price đổi Hàng 10000
   const [returnn, setReturnn] = useState("");
@@ -35,11 +36,10 @@ const Page2 = () => {
     console.log(address);
     setdistrict(address.district);
     setprovince(address.province);
+    setcommune(address.name);
   };
 
   console.log(district);
-
-  const getwarehouses = (warehouse) => {};
 
   console.log(<Test callback={getaddress} />);
   const navigate = useNavigate();
@@ -74,7 +74,31 @@ const Page2 = () => {
 
   const onFinish = (values) => {
     console.log(values);
-    var data = JSON.stringify(values);
+    // var data = JSON.stringify(values);
+    // console.log(data);
+    const arrayPickUp = values.warehouse.split(", ");
+    console.log(arrayPickUp);
+    const data = {
+      pickup_phone: 0,
+      pickup_address: arrayPickUp[0],
+      pickup_province: arrayPickUp[3],
+      pickup_district: arrayPickUp[2],
+      pickup_commune: arrayPickUp[1],
+      district: district,
+      province: province,
+      commune: commune,
+      address: values.address,
+      amount: values.amount,
+      value: values.Value,
+      weight: values.weight,
+      note: values.note,
+      service: 1,
+      config: values.config,
+      product_type: 1,
+      product: values.product,
+      barter: values.barter ? 1 : "",
+      partner: values.partner,
+    };
     console.log(data);
 
     // var config = {
@@ -112,7 +136,8 @@ const Page2 = () => {
   const [pickup, setpickup] = useState("");
   const [weight, setWeight] = useState("");
   const [value, setValue] = useState("");
-
+  const [pickUpProvince, setPickUpProvince] = useState("");
+  const [pickUpDistrict, setPickUpDistrict] = useState("");
   const getValue = (value) => {
     setValue(value);
   };
@@ -120,10 +145,17 @@ const Page2 = () => {
   const getWeight = (value) => {
     setWeight(value);
   };
+
+  const getwarehouses = (warehouse) => {
+    console.log(warehouse);
+    setPickUpProvince(warehouse[3]);
+    setPickUpDistrict(warehouse[2]);
+  };
+
   useEffect(() => {
     var config = {
       method: "get",
-      url: `https://api.mysupership.vn/v1/partner/orders/price?sender_province=Hồ Chí Minh&sender_district=Bình Chánh&receiver_province=${province}&receiver_district=${district}&weight=${weight}&value=${
+      url: `https://api.mysupership.vn/v1/partner/orders/price?sender_province=${pickUpProvince}&sender_district=${pickUpDistrict}&receiver_province=${province}&receiver_district=${district}&weight=${weight}&value=${
         value ? value : 0
       }`,
       headers: {
@@ -144,7 +176,7 @@ const Page2 = () => {
       .catch(function (error) {
         console.log(error);
       });
-  }, [weight, value, district, amountValue, province]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [weight, value, district, amountValue, province, pickUpProvince]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -229,7 +261,7 @@ const Page2 = () => {
                   <h3 className="title">Thông Tin Người Gửi</h3>
                   <Row>
                     <Col lg={22} sm={24} xs={24}>
-                      <Warehouse callback={getwarehouses} />
+                      <Warehouse getwarehouses={getwarehouses} />
                     </Col>
                     <Col lg={2} sm={24} xs={24}>
                       <Testkho />
