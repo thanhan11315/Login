@@ -14,7 +14,7 @@ function Weight(getWeight) {
 
   useEffect(() => {
     getWeight.getWeight(500);
-  }, []);
+  }, []); // eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
     <Form.Item
