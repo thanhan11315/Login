@@ -2,12 +2,15 @@ import { Select, Form } from "antd";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import Loading from "./Loading";
 const { Option } = Select;
 
 function Warehouse(callback) {
   const [warehouses, setWarehouses] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     var warehousesApi = {
       method: "get",
       url: "https://api.mysupership.vn/v1/partner/warehouses?",
@@ -22,6 +25,7 @@ function Warehouse(callback) {
       .then(function (response) {
         console.log(response.data.results);
         setWarehouses(response.data.results);
+        setLoading(false);
       })
       .catch(function (error) {
         console.log(error);
@@ -49,6 +53,7 @@ function Warehouse(callback) {
       label="Kho Lấy Hàng"
       rules={[{ required: true, message: "Please input !" }]}
     >
+      {loading ? <Loading /> : ""}
       <Select
         showSearch
         placeholder="Select a person"

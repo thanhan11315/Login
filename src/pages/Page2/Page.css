@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Rubik:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Rubik:wght@400;500;700&display=swap");
 
 html {
   -webkit-font-smoothing: antialiased;
@@ -22,91 +22,115 @@ body {
 }
 
 .create-align-box {
-    padding-bottom: 15px;
+  padding-bottom: 15px;
 }
 
 .create-align-box .box {
-    padding: 40px;
-    border: 3px solid rgb(167, 58, 58);
-    border-radius: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 15px;
+  padding: 40px;
+  border: 3px solid rgb(167, 58, 58);
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
 }
 
 .create-align-box .img {
-    text-align: center;
-    margin-bottom: 32px;
+  text-align: center;
+  margin-bottom: 32px;
 }
 
 .create-align-box .title {
-    margin: 0px;
-    font-weight: 700;
-    line-height: 1.5;
-    font-size: 1.8rem;
-    font-family: "Fira Sans", sans-serif;
-    text-align: center;
-    margin-bottom: 15px;
+  margin: 0px;
+  font-weight: 700;
+  line-height: 1.5;
+  font-size: 1.8rem;
+  font-family: "Fira Sans", sans-serif;
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-.box-create-button{
+.box-create-button {
   margin-left: auto;
   margin-right: auto;
   width: 150px;
 }
 
+.box-create-button .create-align-box {
+  margin-block: auto;
+}
+
 .create-align-box .create-button {
-    width: 100%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    outline: 0px;
-    border: 0px;
-    margin: 0px;
-    cursor: pointer;
-    user-select: none;
-    vertical-align: middle;
-    appearance: none;
-    text-decoration: none;
-    font-weight: 700;
-    line-height: 1.71429;
-    font-size: 0.9375rem;
-    text-transform: capitalize;
-    font-family: "Fira Sans", sans-serif;
-    min-width: 64px;
-    padding: 8px 22px;
-    border-radius: 5px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(167, 58, 58);
-    width: 100%;
-    box-shadow: rgb(167 58 58 / 24%) 0px 8px 16px 0px;
-    height: 48px;
-    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  outline: 0px;
+  border: 0px;
+  margin: 0px;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  text-decoration: none;
+  font-weight: 700;
+  line-height: 1.71429;
+  font-size: 0.9375rem;
+  text-transform: capitalize;
+  font-family: "Fira Sans", sans-serif;
+  min-width: 64px;
+  padding: 8px 22px;
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(167, 58, 58);
+  width: 100%;
+  box-shadow: rgb(167 58 58 / 24%) 0px 8px 16px 0px;
+  height: 48px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
-.create-align-box create-button:hover{
-    background-color: rgb(167, 58, 58);
-  }
-  
-  .create-align-box .create-button:active{
-    background-color: rgb(167, 58, 58);
-  }
-  
-  .create-align-box .create-button:focus{
-    background-color: rgb(167, 58, 58);
-  }
-
-  .create-align-box .Login {
-    margin: 24px 0px 0px;
-    font-weight: 600;
-    line-height: 1.57143;
-    font-size: 0.875rem;
-    font-family: "Fira Sans", sans-serif;
-    text-align: center;
+.create-align-box create-button:hover {
+  background-color: rgb(167, 58, 58);
 }
-.create-align-box .Login .link{
-    color: rgb(167, 58, 58);
+
+.create-align-box .create-button:active {
+  background-color: rgb(167, 58, 58);
+}
+
+.create-align-box .create-button:focus {
+  background-color: rgb(167, 58, 58);
+}
+
+.create-align-box .Login {
+  margin: 24px 0px 0px;
+  font-weight: 600;
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Fira Sans", sans-serif;
+  text-align: center;
+}
+.create-align-box .Login .link {
+  color: rgb(167, 58, 58);
+}
+
+@media screen and (min-width: 995px) {
+  .create-align-box .boxNamePickup {
+    padding-right: 18px;
+  }
+  .create-align-box .boxAddressPickUp {
+    padding-left: 18px;
+  }
+  .create-align-box .boxNameProduct {
+    padding-right: 18px;
+  }
+  .create-align-box .boxCheckNick {
+    padding-left: 18px;
+  }
+  .boxRight {
+    padding-left: 24px;
+  }
 }

@@ -1,14 +1,19 @@
-import { Alert, Spin } from 'antd';
-import React from 'react';
+import { Spin } from "antd";
+import React from "react";
 
 const Loading = () => (
-  <Spin tip="Loading...">
-    <Alert
-      message="Alert message title"
-      description="Further details about the context of this alert."
-      type="info"
-    />
-  </Spin>
+  <div
+    style={{
+      zIndex: "10",
+      position: "absolute",
+      display: "inline-block",
+      opacity: "1",
+      left: "50%",
+      bottom: "4%",
+    }}
+  >
+    <Spin />
+  </div>
 );
 
 export default Loading;

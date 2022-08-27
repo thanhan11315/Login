@@ -19,6 +19,10 @@ const App = () => {
     setcommune(address.name);
   };
 
+  const getApi = () => {
+    console.log("");
+  };
+
   const showModal = () => {
     setVisible(true);
   };
@@ -66,7 +70,7 @@ const App = () => {
 
           <Address />
 
-          <Test callback={getaddress} />
+          <Test callback={getaddress} getApi={getApi} />
 
           <Form.Item name="remember" valuePropName="checked">
             <Checkbox>Mặc định</Checkbox>

@@ -8,7 +8,6 @@ import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { Button, Form, Input, Checkbox } from "antd";
 import React from "react";
-// import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +20,7 @@ import Weight from "../../compoments/GlobalStyles/Weight";
 import PickupCode from "../../compoments/GlobalStyles/PickupCode";
 import Config from "../../compoments/GlobalStyles/Config";
 import Warehouse from "../../compoments/GlobalStyles/Warehouses ";
+import Loading from "../../compoments/GlobalStyles/Loading";
 import axios from "axios";
 const Page2 = () => {
   TabTitle("Tạo đơn hàng");
@@ -138,6 +138,7 @@ const Page2 = () => {
   const [value, setValue] = useState("");
   const [pickUpProvince, setPickUpProvince] = useState("");
   const [pickUpDistrict, setPickUpDistrict] = useState("");
+  const [loading, setloading] = useState(false);
   const getValue = (value) => {
     setValue(value);
   };
@@ -161,6 +162,7 @@ const Page2 = () => {
   };
 
   useEffect(() => {
+    setloading(true);
     var config = {
       method: "get",
       url: `https://api.mysupership.vn/v1/partner/orders/price?sender_province=${pickUpProvince}&sender_district=${pickUpDistrict}&receiver_province=${provinceApi}&receiver_district=${districtApi}&weight=${weight}&value=${
@@ -180,6 +182,7 @@ const Page2 = () => {
         setinsurance(data.insurance);
         setpickup(data.pickup.name);
         console.log(data);
+        setloading(false);
       })
       .catch(function (error) {
         console.log(error);
@@ -279,19 +282,19 @@ const Page2 = () => {
                 <h3 className="title">Thông Tin Người Nhận</h3>
                 <Row>
                   <Col lg={12} sm={24} xs={24}>
-                    <div>
+                    <div className="boxNamePickup">
                       <NamePickup />
                       <PhoneInput />
                       <AddressPickup />
                     </div>
                   </Col>
-                  <Col lg={12} sm={24} xs={24}>
+                  <Col lg={12} sm={24} xs={24} className="boxAddressPickUp">
                     <Test callback={getaddress} getApi={getApi} />
                   </Col>
                 </Row>
                 <h3 className="title">Thông Tin Đơn Hàng</h3>
                 <Row>
-                  <Col lg={12} sm={24} xs={24}>
+                  <Col lg={12} sm={24} xs={24} className="boxNameProduct">
                     <Product />
 
                     <Amount getAmount={getAmount} getValue={getValue} />
@@ -300,7 +303,7 @@ const Page2 = () => {
 
                     <PickupCode />
                   </Col>
-                  <Col lg={12} sm={24} xs={24}>
+                  <Col lg={12} sm={24} xs={24} className="boxCheckNick">
                     <Form.Item name="barter" valuePropName="checked">
                       <Checkbox checked={checkNick} onChange={onCheckboxChange}>
                         Đổi/Lấy Hàng Về
@@ -344,7 +347,7 @@ const Page2 = () => {
           </div>
         </Col>
 
-        <Col lg={6} sm={24} xs={24}>
+        <Col lg={6} sm={24} xs={24} className="boxRight">
           <Alert
             style={{ marginBottom: "20px", marginTop: "20px" }}
             type="warning"
@@ -463,13 +466,17 @@ const Page2 = () => {
                       borderRadius: "5px",
                     }}
                   >
-                    {fee + insurance + returnn
-                      ? (
-                          (fee ? fee : 0) +
-                          (insurance ? insurance : 0) +
-                          (returnn ? returnn : 0)
-                        ).toLocaleString()
-                      : 0}{" "}
+                    {loading ? (
+                      <Loading />
+                    ) : fee + insurance + returnn ? (
+                      (
+                        (fee ? fee : 0) +
+                        (insurance ? insurance : 0) +
+                        (returnn ? returnn : 0)
+                      ).toLocaleString()
+                    ) : (
+                      0
+                    )}
                     ₫
                   </span>{" "}
                   = [1] + [2] - [3]
@@ -487,7 +494,11 @@ const Page2 = () => {
                   <div>
                     <b>CHI TIẾT PHÍ</b>
                   </div>
-                  <div>
+                  <div
+                    style={{
+                      paddingTop: "10px",
+                    }}
+                  >
                     Phí Giao Hàng{" "}
                     <span
                       style={{
@@ -500,32 +511,48 @@ const Page2 = () => {
                     </span>{" "}
                     [1]
                   </div>
-                  <div>
-                    Phí Bảo Hiểm{" "}
-                    <span
+                  {insurance ? (
+                    <div
                       style={{
-                        padding: "5px",
-                        backgroundColor: "#e33649",
-                        borderRadius: "5px",
+                        paddingTop: "10px",
                       }}
                     >
-                      {insurance ? insurance.toLocaleString() : 0} ₫{" "}
-                    </span>{" "}
-                    [2]
-                  </div>
-                  <div>
-                    Phí Hàng Đổi{" "}
-                    <span
+                      Phí Bảo Hiểm{" "}
+                      <span
+                        style={{
+                          padding: "5px",
+                          backgroundColor: "#e33649",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        {insurance ? insurance.toLocaleString() : 0} ₫{" "}
+                      </span>{" "}
+                      [2]
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {returnn ? (
+                    <div
                       style={{
-                        padding: "5px",
-                        backgroundColor: "#e33649",
-                        borderRadius: "5px",
+                        paddingTop: "10px",
                       }}
                     >
-                      {returnn ? returnn.toLocaleString() : 0} ₫{" "}
-                    </span>{" "}
-                    [2]
-                  </div>
+                      Phí Hàng Đổi{" "}
+                      <span
+                        style={{
+                          padding: "5px",
+                          backgroundColor: "#e33649",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        {returnn ? returnn.toLocaleString() : 0} ₫{" "}
+                      </span>{" "}
+                      [2]
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </p>
               </>
             }

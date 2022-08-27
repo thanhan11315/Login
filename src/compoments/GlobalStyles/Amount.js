@@ -1,20 +1,22 @@
 import { Form, InputNumber, Space } from "antd";
 import { useState } from "react";
 
-function Amount(getAmount) {
+function Amount(prosp) {
   const [valueP, setValueP] = useState("");
+  const [amountValue, setAmountValue] = useState("");
 
   const onChangeAmount = (value) => {
     console.log("changed", value);
+    setAmountValue(value);
     setValueP(value);
-    getAmount.getAmount(value);
-    getAmount.getValue(value);
+    prosp.getAmount(value);
+    prosp.getValue(value);
   };
 
   const onChangeValue = (value) => {
     console.log("change", value);
     setValueP(value);
-    getAmount.getValue(value);
+    prosp.getValue(value);
   };
 
   return (
@@ -26,12 +28,12 @@ function Amount(getAmount) {
           {
             required: true,
             message: "Please input !",
-            whitespace: true,
           },
         ]}
       >
         <Space style={{ width: "100%" }}>
           <InputNumber
+            value={amountValue}
             min={0}
             max={30000000}
             defaultValue={""}
@@ -44,16 +46,7 @@ function Amount(getAmount) {
           />
         </Space>
       </Form.Item>
-      <Form.Item
-        name="Value"
-        label="Giá trị đơn hàng"
-        rules={[
-          {
-            message: "Please input !",
-            whitespace: true,
-          },
-        ]}
-      >
+      <Form.Item name="Value" label="Giá trị đơn hàng">
         <Space style={{ width: "100%" }}>
           <InputNumber
             min={0}
@@ -68,6 +61,18 @@ function Amount(getAmount) {
             style={{ width: "100%" }}
           />
         </Space>
+        <div
+          style={{
+            color: "#e1293d",
+            fontSize: "12px",
+          }}
+        >
+          Giá Trị Hàng Hóa bạn kê khai tại mục này chính là Giá Trị Căn Cứ để
+          xét xử lý Bồi Hoàn.
+          <a href="https://drive.google.com/file/d/1O7s3vFOK9lvz1awyYj3fWcLb1LlXOGrr/view?ref=MySuperShip">
+            Xem Chính Sách Bồi Hoàn
+          </a>
+        </div>
       </Form.Item>
     </>
   );
