@@ -1,5 +1,6 @@
 import "./Page.css";
 import { Alert } from "antd";
+import { message } from "antd";
 import TabTitle from "../TapTitle";
 import Logo from "../../assets/images/SuperShip-Logo.png";
 import Test from "../Test/Test.js";
@@ -25,6 +26,16 @@ import axios from "axios";
 const Page2 = () => {
   TabTitle("Tạo đơn hàng");
 
+  const error = () => {
+    message.error({
+      content: "Vui Lòng Nhập Địa Chỉ",
+      className: "custom-class",
+      style: {
+        marginTop: "20vh",
+      },
+    });
+  };
+
   const [district, setdistrict] = useState("");
   const [province, setprovince] = useState("");
   const [commune, setcommune] = useState("");
@@ -32,7 +43,7 @@ const Page2 = () => {
   // price đổi Hàng 10000
   const [returnn, setReturnn] = useState("");
 
-  const getaddress = (address) => {
+  const getAddress = (address) => {
     console.log(address);
     setdistrict(address.district);
     setprovince(address.province);
@@ -41,7 +52,6 @@ const Page2 = () => {
 
   console.log(district);
 
-  console.log(<Test callback={getaddress} />);
   const navigate = useNavigate();
   const refreshPagechild = () => {
     const getLocalUsername = JSON.parse(localStorage.getItem("dzzshasddf"));
@@ -73,54 +83,56 @@ const Page2 = () => {
   }, [checkNick]);
 
   const onFinish = (values) => {
-    console.log(values);
-    // var data = JSON.stringify(values);
-    // console.log(data);
-    const arrayPickUp = values.warehouse.split(", ");
-    console.log(arrayPickUp);
-    const data = {
-      pickup_phone: 0,
-      pickup_address: arrayPickUp[0],
-      pickup_province: arrayPickUp[3],
-      pickup_district: arrayPickUp[2],
-      pickup_commune: arrayPickUp[1],
-      district: district,
-      province: province,
-      commune: commune,
-      address: values.address,
-      amount: amountValue,
-      value: value,
-      weight: weight,
-      note: values.note,
-      service: 1,
-      config: values.config,
-      product_type: 1,
-      product: values.product,
-      barter: values.barter ? 1 : "",
-      partner: values.partner,
-    };
-    console.log(data);
+    if (commune) {
+      const arrayPickUp = values.warehouse.split(", ");
+      console.log(arrayPickUp);
+      const data = {
+        pickup_phone: 0,
+        pickup_address: arrayPickUp[0],
+        pickup_province: arrayPickUp[3],
+        pickup_district: arrayPickUp[2],
+        pickup_commune: arrayPickUp[1],
+        district: district,
+        province: province,
+        commune: commune,
+        address: values.address,
+        amount: amountValue,
+        value: value,
+        weight: weight,
+        note: values.note,
+        service: 1,
+        config: values.config,
+        product_type: 1,
+        product: values.product,
+        barter: values.barter ? 1 : "",
+        partner: values.partner,
+      };
+      console.log(data);
 
-    // var config = {
-    //   method: "post",
-    //   url: "https://api.mysupership.vn/v1/partner/orders/add",
-    //   headers: {
-    //     Accept: "application/json",
-    //     Authorization:
-    //       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImRmMGU5NTI2Nzc5Y2Y3Nzk2ZTY3ZjllNGQzZmNkZDg0Yzk0OWY4M2IxOTQxMzM1YTQwODQ2NGQwMDU4NzNiMDM3NDAwMDM1MjRhZTZlMjJhIn0.eyJhdWQiOiIxIiwianRpIjoiZGYwZTk1MjY3NzljZjc3OTZlNjdmOWU0ZDNmY2RkODRjOTQ5ZjgzYjE5NDEzMzVhNDA4NDY0ZDAwNTg3M2IwMzc0MDAwMzUyNGFlNmUyMmEiLCJpYXQiOjE2NjAwMzY1NDgsIm5iZiI6MTY2MDAzNjU0OCwiZXhwIjoxNjkxNTcyNTQ4LCJzdWIiOiI0MTMxMSIsInNjb3BlcyI6W119.01rKRfFAVw-3G-8FLNo2TGvNVjdNZE1LaxjRqKJ7FKL2NT-s2iZS-oRnYetm3wZPVc-dDPiG3b1ptPXyN0noOcBiT5VFQaP2T_jEFZdLJeas-mL9bOtqmWnseyP6wtqjfFEI3HBSZLCgIZDSYZY8XRZdCCwq5zxXocHywfpXVoDrAPJSa64YY-nD6YJo6FThtBh_LHfdGQ51j_qH8OChyF3O0TiCUmlDD8G0K_91wtw1KgvAmn6XM5H3oCqCWZEmKqaukkXh_4rI5hlAQN-0CarkLbU0wKMmnkr_hPqdjvBeGOaCYwzB9yRGlTLf-YBBqprpvNNs4FBi1cBp7oTag___KPifAP_kyjbtn853yh05t2mdw62HnKHX4PdrUBjuR68zrBOnORXqd5ft5djdC_REbfonojqUpVhK51IOmx6RMcl13DUIlUisb3T4shJrm66lzVTSzH_tqyhqxxx7_v1vWKydQBVRYPxnoiA3P5fHPYk-KH_FMJa0IAxNojjhtl6O8u9myfYLlF-htHYjNlsn3syEKGkpfKgMEhIj9FQzHvHvgxOyVvhmK30lePZ_WvIWXOdn42vhSfNjy7p3wOqwY4fHoAiNrqnJgMRAWFJUFNcHL4Xi_zQ8f4u10sNvyg8jyA7uK-bVfGR8ghT8WKcKLPlR-6FMFoTBGpxmPyo",
-    //     "Content-Type": "application/json",
-    //   },
-    //   data: data,
-    // };
+      // var config = {
+      //   method: "post",
+      //   url: "https://api.mysupership.vn/v1/partner/orders/add",
+      //   headers: {
+      //     Accept: "application/json",
+      //     Authorization:
+      //       "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImRmMGU5NTI2Nzc5Y2Y3Nzk2ZTY3ZjllNGQzZmNkZDg0Yzk0OWY4M2IxOTQxMzM1YTQwODQ2NGQwMDU4NzNiMDM3NDAwMDM1MjRhZTZlMjJhIn0.eyJhdWQiOiIxIiwianRpIjoiZGYwZTk1MjY3NzljZjc3OTZlNjdmOWU0ZDNmY2RkODRjOTQ5ZjgzYjE5NDEzMzVhNDA4NDY0ZDAwNTg3M2IwMzc0MDAwMzUyNGFlNmUyMmEiLCJpYXQiOjE2NjAwMzY1NDgsIm5iZiI6MTY2MDAzNjU0OCwiZXhwIjoxNjkxNTcyNTQ4LCJzdWIiOiI0MTMxMSIsInNjb3BlcyI6W119.01rKRfFAVw-3G-8FLNo2TGvNVjdNZE1LaxjRqKJ7FKL2NT-s2iZS-oRnYetm3wZPVc-dDPiG3b1ptPXyN0noOcBiT5VFQaP2T_jEFZdLJeas-mL9bOtqmWnseyP6wtqjfFEI3HBSZLCgIZDSYZY8XRZdCCwq5zxXocHywfpXVoDrAPJSa64YY-nD6YJo6FThtBh_LHfdGQ51j_qH8OChyF3O0TiCUmlDD8G0K_91wtw1KgvAmn6XM5H3oCqCWZEmKqaukkXh_4rI5hlAQN-0CarkLbU0wKMmnkr_hPqdjvBeGOaCYwzB9yRGlTLf-YBBqprpvNNs4FBi1cBp7oTag___KPifAP_kyjbtn853yh05t2mdw62HnKHX4PdrUBjuR68zrBOnORXqd5ft5djdC_REbfonojqUpVhK51IOmx6RMcl13DUIlUisb3T4shJrm66lzVTSzH_tqyhqxxx7_v1vWKydQBVRYPxnoiA3P5fHPYk-KH_FMJa0IAxNojjhtl6O8u9myfYLlF-htHYjNlsn3syEKGkpfKgMEhIj9FQzHvHvgxOyVvhmK30lePZ_WvIWXOdn42vhSfNjy7p3wOqwY4fHoAiNrqnJgMRAWFJUFNcHL4Xi_zQ8f4u10sNvyg8jyA7uK-bVfGR8ghT8WKcKLPlR-6FMFoTBGpxmPyo",
+      //     "Content-Type": "application/json",
+      //   },
+      //   data: data,
+      // };
 
-    // axios(config)
-    //   .then(function (response) {
-    //     console.log(JSON.stringify(response.data));
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+      // axios(config)
+      //   .then(function (response) {
+      //     console.log(JSON.stringify(response.data));
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+    } else {
+      error();
+    }
   };
+
   // Amount
 
   const [amountValue, setAmountValue] = useState("");
@@ -156,7 +168,7 @@ const Page2 = () => {
   const [provinceApi, setprovinceApi] = useState("");
   const [districtApi, setdistrictApi] = useState("");
 
-  const getApi = (value) => {
+  const getDistrict = (value) => {
     setprovinceApi(value.province);
     setdistrictApi(value.name);
   };
@@ -186,6 +198,8 @@ const Page2 = () => {
       })
       .catch(function (error) {
         console.log(error);
+        setloading(false);
+        setfee(0);
       });
   }, [weight, value, districtApi, amountValue, provinceApi, pickUpProvince]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -255,7 +269,6 @@ const Page2 = () => {
           <div className="create-align-box">
             <div className="box">
               <div className="img">
-                <h2 className="title">Tạo Đơn Hàng</h2>
                 <img
                   src={Logo}
                   alt="img not load"
@@ -271,10 +284,10 @@ const Page2 = () => {
                 <div>
                   <h3 className="title">Thông Tin Người Gửi</h3>
                   <Row>
-                    <Col lg={22} sm={24} xs={24}>
+                    <Col lg={23} sm={22} xs={22}>
                       <Warehouse getwarehouses={getwarehouses} />
                     </Col>
-                    <Col lg={2} sm={24} xs={24}>
+                    <Col lg={1} sm={2} xs={2}>
                       <Testkho />
                     </Col>
                   </Row>
@@ -289,7 +302,7 @@ const Page2 = () => {
                     </div>
                   </Col>
                   <Col lg={12} sm={24} xs={24} className="boxAddressPickUp">
-                    <Test callback={getaddress} getApi={getApi} />
+                    <Test getAddress={getAddress} getDistrict={getDistrict} />
                   </Col>
                 </Row>
                 <h3 className="title">Thông Tin Đơn Hàng</h3>
@@ -376,7 +389,11 @@ const Page2 = () => {
                     màu đỏ để tạo nhanh.
                   </div>
                   <div>[2] Chỉ cần nhập các ô có dấu</div>
-                  <div>[*] là có thể tạo đơn được rồi, các ô</div>
+                  <div>
+                    {" "}
+                    <span style={{ color: "rgb(225, 41, 61)" }}>[*]</span> là có
+                    thể tạo đơn được rồi, các ô
+                  </div>
                   <div> khác không cần nhập cũng không sao cả.</div>
                   <div>
                     {" "}

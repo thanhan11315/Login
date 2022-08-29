@@ -5,7 +5,9 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import Loading from "../../compoments/GlobalStyles/Loading";
+import LoadingProvince from "../../compoments/GlobalStyles/LoadingProvince";
+import LoadingDistrict from "../../compoments/GlobalStyles/LoadingDistrict";
+import LoadingCommune from "../../compoments/GlobalStyles/LoadingCommune";
 const { Option } = Select;
 
 const Test = (props) => {
@@ -54,8 +56,8 @@ const Test = (props) => {
     setcommune("");
     setaddress("");
     setcommunes([]);
-    props.callback("");
-    props.getApi("");
+    props.getAddress("");
+    props.getDistrict("");
   };
 
   const onSearchprovince = (value) => {
@@ -89,8 +91,8 @@ const Test = (props) => {
     setcommunid(value);
     setcommune("");
     setaddress("");
-    props.callback("");
-    props.getApi(districtO[0]);
+    props.getAddress("");
+    props.getDistrict(districtO[0]);
   };
 
   const onSearchdistrict = (value) => {
@@ -127,7 +129,7 @@ const Test = (props) => {
     // delete addresscode.code;
     setaddress(addresscode);
     console.log(address);
-    props.callback(communsO[0]);
+    props.getAddress(communsO[0]);
   };
 
   const onSearchcommune = (value) => {
@@ -138,48 +140,46 @@ const Test = (props) => {
 
   return (
     <>
-      <div className="boxfake">
-        <p>*</p>
-        <Form.Item
-          label="Province"
-          rules={[{ required: true }]}
-          style={{ width: "100%" }}
+      {loadingProvince ? <LoadingProvince /> : ""}
+      <Form.Item
+        name="province"
+        label="Province"
+        rules={[{ required: true, message: "Please Input" }]}
+        style={{ width: "100%" }}
+      >
+        <Select
+          showSearch
+          placeholder="Select a province"
+          optionFilterProp="children"
+          onChange={onChangeprovince}
+          onSearch={onSearchprovince}
+          filterOption={(input, option) => option.children.includes(input)}
+          filterSort={(optionA, optionB) =>
+            optionA.children
+              .toLowerCase()
+              .localeCompare(optionB.children.toLowerCase())
+          }
         >
-          {loadingProvince ? <Loading /> : ""}
-          <Select
-            showSearch
-            placeholder="Select a province"
-            optionFilterProp="children"
-            onChange={onChangeprovince}
-            onSearch={onSearchprovince}
-            filterOption={(input, option) => option.children.includes(input)}
-            filterSort={(optionA, optionB) =>
-              optionA.children
-                .toLowerCase()
-                .localeCompare(optionB.children.toLowerCase())
-            }
-          >
-            {provinces === undefined
-              ? ""
-              : provinces.map((province, key) => {
-                  return (
-                    <Option key={key} value={province.code}>
-                      {province.name}
-                    </Option>
-                  );
-                })}
-          </Select>
-        </Form.Item>
-      </div>
+          {provinces === undefined
+            ? ""
+            : provinces.map((province, key) => {
+                return (
+                  <Option key={key} value={province.code}>
+                    {province.name}
+                  </Option>
+                );
+              })}
+        </Select>
+      </Form.Item>
 
       <div className="boxfake">
+        {loadingDistrict ? <LoadingDistrict /> : ""}
         <p>*</p>
         <Form.Item
           style={{ width: "100%" }}
           label="District"
           rules={[{ required: true }]}
         >
-          {loadingDistrict ? <Loading /> : ""}
           <Select
             value={district}
             showSearch
@@ -207,13 +207,13 @@ const Test = (props) => {
         </Form.Item>
       </div>
       <div className="boxfake">
+        {loadingCommune ? <LoadingCommune /> : ""}
         <p>*</p>
         <Form.Item
           style={{ width: "100%" }}
           label="Commune"
           rules={[{ required: true }]}
         >
-          {loadingCommune ? <Loading /> : ""}
           <Select
             value={commune}
             showSearch

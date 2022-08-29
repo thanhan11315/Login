@@ -1,7 +1,7 @@
 import { Spin } from "antd";
 import React from "react";
 
-const Loading = () => (
+const LoadingCommune = () => (
   <div
     style={{
       zIndex: "10",
@@ -9,11 +9,11 @@ const Loading = () => (
       display: "inline-block",
       opacity: "1",
       left: "60%",
-      bottom: "45%",
+      bottom: "14%",
     }}
   >
     <Spin />
   </div>
 );
 
-export default Loading;
+export default LoadingCommune;

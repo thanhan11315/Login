@@ -303,40 +303,39 @@ const Register = () => {
             </Form.Item>
 
             {/* addresses */}
-            <div className="boxfake">
-              <p>*</p>
-              <Form.Item
-                label="Province"
-                rules={[{ required: true }]}
-                style={{ width: "100%" }}
+
+            <Form.Item
+              name="province"
+              label="Province"
+              rules={[{ required: true }]}
+              style={{ width: "100%" }}
+            >
+              <Select
+                showSearch
+                placeholder="Select a province"
+                optionFilterProp="children"
+                onChange={onChangeprovince}
+                onSearch={onSearchprovince}
+                filterOption={(input, option) =>
+                  option.children.includes(input)
+                }
+                filterSort={(optionA, optionB) =>
+                  optionA.children
+                    .toLowerCase()
+                    .localeCompare(optionB.children.toLowerCase())
+                }
               >
-                <Select
-                  showSearch
-                  placeholder="Select a province"
-                  optionFilterProp="children"
-                  onChange={onChangeprovince}
-                  onSearch={onSearchprovince}
-                  filterOption={(input, option) =>
-                    option.children.includes(input)
-                  }
-                  filterSort={(optionA, optionB) =>
-                    optionA.children
-                      .toLowerCase()
-                      .localeCompare(optionB.children.toLowerCase())
-                  }
-                >
-                  {provinces === undefined
-                    ? ""
-                    : provinces.map((province, key) => {
-                        return (
-                          <Option key={key} value={province.code}>
-                            {province.name}
-                          </Option>
-                        );
-                      })}
-                </Select>
-              </Form.Item>
-            </div>
+                {provinces === undefined
+                  ? ""
+                  : provinces.map((province, key) => {
+                      return (
+                        <Option key={key} value={province.code}>
+                          {province.name}
+                        </Option>
+                      );
+                    })}
+              </Select>
+            </Form.Item>
 
             <div className="boxfake">
               <p>*</p>

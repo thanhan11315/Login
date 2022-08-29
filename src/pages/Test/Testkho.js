@@ -6,20 +6,32 @@ import Address from "../../compoments/GlobalStyles/Address";
 import Contact from "../../compoments/GlobalStyles/Contact";
 import Phone from "../../compoments/GlobalStyles/Phone";
 import Name from "../../compoments/GlobalStyles/Name";
+import "./wareHouse.css";
+import { message } from "antd";
 const App = () => {
   const [visible, setVisible] = useState(false);
   const [district, setdistrict] = useState("");
   const [province, setprovince] = useState("");
   const [commune, setcommune] = useState("");
 
-  const getaddress = (address) => {
+  const error = () => {
+    message.error({
+      content: "Vui Lòng Nhập Địa Chỉ",
+      className: "custom-class",
+      style: {
+        marginTop: "20vh",
+      },
+    });
+  };
+
+  const getAddress = (address) => {
     console.log(address);
     setdistrict(address.district);
     setprovince(address.province);
     setcommune(address.name);
   };
 
-  const getApi = () => {
+  const getDistrict = () => {
     console.log("");
   };
 
@@ -32,61 +44,65 @@ const App = () => {
   };
 
   const onFinish = (value) => {
-    console.log(value);
-    const data = {
-      name: value.name,
-      phone: value.phone,
-      contact: value.contact,
-      address: value.address,
-      primary: value.remember ? 1 : 0,
-      province: province,
-      district: district,
-      commune: commune,
-    };
-    console.log(data);
+    if (commune) {
+      const data = {
+        name: value.name,
+        phone: value.phone,
+        contact: value.contact,
+        address: value.address,
+        primary: value.remember ? 1 : 0,
+        province: province,
+        district: district,
+        commune: commune,
+      };
+      console.log(data);
+    } else {
+      error();
+    }
   };
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        +
-      </Button>
-      <Modal
-        visible={visible}
-        title="Tạo Kho Hàng"
-        onCancel={handleCancel}
-        footer={[
-          <Button key="back" onClick={handleCancel}>
-            Đóng
-          </Button>,
-        ]}
-      >
-        <Form name="register" onFinish={onFinish} scrollToFirstError>
-          <Name />
+      <div className="boxWareHouse">
+        <Button type="primary" onClick={showModal}>
+          +
+        </Button>
+        <Modal
+          visible={visible}
+          title="Tạo Kho Hàng"
+          onCancel={handleCancel}
+          footer={[]}
+        >
+          <Form name="register" onFinish={onFinish} scrollToFirstError>
+            <Name />
 
-          <Phone />
+            <Phone />
 
-          <Contact />
+            <Contact />
 
-          <Address />
+            <Address />
 
-          <Test callback={getaddress} getApi={getApi} />
+            <div style={{ position: "relative" }}>
+              <Test getAddress={getAddress} getDistrict={getDistrict} />
+            </div>
+            <Form.Item name="remember" valuePropName="checked">
+              <Checkbox>Mặc định</Checkbox>
+            </Form.Item>
 
-          <Form.Item name="remember" valuePropName="checked">
-            <Checkbox>Mặc định</Checkbox>
-          </Form.Item>
-
-          <Form.Item>
-            <Button
-              className="Register-button"
-              type="primary"
-              htmlType="submit"
-            >
-              Tạo Kho
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
+            <Form.Item>
+              <div className="boxButton">
+                <Button
+                  className="Register-button"
+                  type="primary"
+                  htmlType="submit"
+                >
+                  Tạo Kho
+                </Button>
+              </div>
+            </Form.Item>
+          </Form>
+        </Modal>
+      </div>
     </>
   );
 };

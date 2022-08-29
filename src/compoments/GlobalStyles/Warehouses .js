@@ -48,37 +48,39 @@ function Warehouse(callback) {
   };
 
   return (
-    <Form.Item
-      name="warehouse"
-      label="Kho Lấy Hàng"
-      rules={[{ required: true, message: "Please input !" }]}
-    >
+    <>
       {loading ? <Loading /> : ""}
-      <Select
-        showSearch
-        placeholder="Select a person"
-        optionFilterProp="children"
-        onChange={onChange}
-        onSearch={onSearch}
-        filterOption={(input, option) =>
-          option.children.toLowerCase().includes(input.toLowerCase())
-        }
+      <Form.Item
+        name="warehouse"
+        label="Kho Lấy Hàng"
+        rules={[{ required: true, message: "Please input !" }]}
       >
-        {warehouses === undefined
-          ? " "
-          : warehouses.map((warehouse) => {
-              console.log(warehouse);
-              return (
-                <Option
-                  key={warehouse.code}
-                  value={warehouse.formatted_address}
-                >
-                  {warehouse.name} - {warehouse.formatted_address}
-                </Option>
-              );
-            })}
-      </Select>
-    </Form.Item>
+        <Select
+          showSearch
+          placeholder="Select a person"
+          optionFilterProp="children"
+          onChange={onChange}
+          onSearch={onSearch}
+          filterOption={(input, option) =>
+            option.children.toLowerCase().includes(input.toLowerCase())
+          }
+        >
+          {warehouses === undefined
+            ? " "
+            : warehouses.map((warehouse) => {
+                console.log(warehouse);
+                return (
+                  <Option
+                    key={warehouse.code}
+                    value={warehouse.formatted_address}
+                  >
+                    {warehouse.name} - {warehouse.formatted_address}
+                  </Option>
+                );
+              })}
+        </Select>
+      </Form.Item>
+    </>
   );
 }
 
