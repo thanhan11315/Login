@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { CopyOutlined, ImportOutlined } from "@ant-design/icons";
+import { CopyOutlined, ImportOutlined, BookOutlined } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu } from "antd";
 import { MenuItem } from "rc-menu";
 import React from "react";
@@ -43,8 +43,12 @@ const DefaultLayout = ({ children }) => (
         >
           <MenuItem>
             <Link to="/Page2">
-              <CopyOutlined />
-              Tạo Đơn Hàng
+              <CopyOutlined /> Tạo Đơn Hàng
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link to="/orderManagement">
+              <BookOutlined /> Quản Lý Đơn Hàng
             </Link>
           </MenuItem>
         </Menu>

@@ -5,7 +5,7 @@ import axios from "axios";
 import Loading from "./Loading";
 const { Option } = Select;
 
-function Warehouse(props) {
+function WarehouseManagement(props) {
   const [warehouses, setWarehouses] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -49,13 +49,9 @@ function Warehouse(props) {
     <>
       <div style={{ position: "relative" }}>
         {loading ? <Loading /> : ""}
-        <Form.Item
-          name="warehouse"
-          label="Kho Hàng"
-          rules={[{ required: true, message: "Please Input" }]}
-          style={{ width: "100%" }}
-        >
+        <Form.Item name="warehouse" label="Kho Hàng" style={{ width: "100%" }}>
           <Select
+            mode="multiple"
             showSearch
             placeholder="Select a province"
             optionFilterProp="children"
@@ -84,4 +80,4 @@ function Warehouse(props) {
   );
 }
 
-export default Warehouse;
+export default WarehouseManagement;

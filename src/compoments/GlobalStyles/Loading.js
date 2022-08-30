@@ -9,7 +9,7 @@ const Loading = () => (
       display: "inline-block",
       opacity: "1",
       left: "60%",
-      bottom: "45%",
+      bottom: "0%",
     }}
   >
     <Spin />
