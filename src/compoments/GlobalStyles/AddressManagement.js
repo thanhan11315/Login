@@ -153,11 +153,10 @@ const AddressManagement = (props) => {
       {loadingDistrict ? (
         <LoadingClear />
       ) : (
-        <Form.Item style={{ width: "100%" }} name="district" label="District">
+        <Form.Item name="dictrict" label="District" style={{ width: "100%" }}>
           <Select
             mode="multiple"
-            showSearch
-            placeholder="Select distrist"
+            placeholder="Select District"
             optionFilterProp="children"
             onChange={onChangedistrict}
             onSearch={onSearchdistrict}
@@ -177,7 +176,7 @@ const AddressManagement = (props) => {
                     </Option>
                   );
                 })}
-          </Select>{" "}
+          </Select>
         </Form.Item>
       )}
 

@@ -36,9 +36,9 @@ function WarehouseManagement(props) {
 
   const onChange = (value) => {
     console.log(value);
-    const pickupAddress = value.split(", ");
-    console.log(pickupAddress);
-    props.getwarehouses(pickupAddress);
+    // const pickupAddress = value.split(", ");
+    // console.log(pickupAddress);
+    // props.getwarehouses(pickupAddress);
   };
 
   const onSearch = (value) => {
