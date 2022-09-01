@@ -1,5 +1,5 @@
 import "./Test.css";
-import { Form, Select } from "antd";
+import { Form, Select, Button } from "antd";
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
@@ -15,10 +15,10 @@ const TestNew = (props) => {
   const [districtid, setdistrictid] = useState("");
   const [communes, setcommunes] = useState([]);
   const [communid, setcommunid] = useState("");
-  const [address, setaddress] = useState("");
   const [loadingDistrict, setLoadingDistrict] = useState(false);
   const [loadingCommune, setLoadingCommune] = useState(false);
   const [loadingProvince, setLoadingProvince] = useState(false);
+  const [commune, setcommune] = useState("");
   console.log(provinces);
   console.log(districts);
   console.log(communes);
@@ -45,10 +45,6 @@ const TestNew = (props) => {
   const onChangeprovince = (value) => {
     console.log(`selected ${value}`);
     setdistrictid(value);
-    setaddress("");
-    setcommunes([]);
-    props.getAddress("");
-    props.getDistrict("");
   };
 
   const onSearchprovince = (value) => {
@@ -77,13 +73,8 @@ const TestNew = (props) => {
   //district
 
   const onChangedistrict = (value) => {
-    var districtO = districts.filter((district) => {
-      return district.code === value;
-    });
     setcommunid(value);
     setaddress("");
-    props.getAddress("");
-    props.getDistrict(districtO[0]);
   };
 
   const onSearchdistrict = (value) => {
@@ -92,6 +83,7 @@ const TestNew = (props) => {
 
   useEffect(() => {
     setLoadingCommune(true);
+    setcommune("");
     var districtApi = {
       method: "get",
       url: `https://api.mysupership.vn/v1/partner/areas/commune?district=${communid}`,
@@ -118,8 +110,6 @@ const TestNew = (props) => {
     var addresscode = communsO[0];
     // delete addresscode.code;
     setaddress(addresscode);
-    console.log(address);
-    props.getAddress(communsO[0]);
   };
 
   const onSearchcommune = (value) => {
@@ -128,114 +118,151 @@ const TestNew = (props) => {
 
   // adresses
 
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <>
-      {loadingProvince ? (
-        <LoadingClear />
-      ) : (
-        <Form.Item
-          name="provinceT"
-          label="Province"
-          rules={[{ required: true, message: "Please Input" }]}
-          style={{ width: "100%" }}
-        >
-          <Select
-            showSearch
-            placeholder="Select a province"
-            optionFilterProp="children"
-            onChange={onChangeprovince}
-            onSearch={onSearchprovince}
-            filterOption={(input, option) => option.children.includes(input)}
-            filterSort={(optionA, optionB) =>
-              optionA.children
-                .toLowerCase()
-                .localeCompare(optionB.children.toLowerCase())
-            }
+      <Form
+        name="basic"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+        initialValues={{
+          remember: true,
+        }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+      >
+        {loadingProvince ? (
+          <LoadingClear />
+        ) : (
+          <Form.Item
+            name="provinceT"
+            label="Province"
+            rules={[{ required: true, message: "Please Input" }]}
+            style={{ width: "100%" }}
           >
-            {provinces === undefined
-              ? ""
-              : provinces.map((province, key) => {
-                  return (
-                    <Option key={key} value={province.code}>
-                      {province.name}
-                    </Option>
-                  );
-                })}
-          </Select>
-        </Form.Item>
-      )}
+            <Select
+              showSearch
+              placeholder="Select a province"
+              optionFilterProp="children"
+              onChange={onChangeprovince}
+              onSearch={onSearchprovince}
+              filterOption={(input, option) => option.children.includes(input)}
+              filterSort={(optionA, optionB) =>
+                optionA.children
+                  .toLowerCase()
+                  .localeCompare(optionB.children.toLowerCase())
+              }
+            >
+              {provinces === undefined
+                ? ""
+                : provinces.map((province, key) => {
+                    return (
+                      <Option key={key} value={province.code}>
+                        {province.name}
+                      </Option>
+                    );
+                  })}
+            </Select>
+          </Form.Item>
+        )}
 
-      {loadingDistrict ? (
-        <LoadingClear />
-      ) : (
-        <Form.Item
-          name="districtT"
-          style={{ width: "100%" }}
-          label="District"
-          rules={[{ required: true, message: "Please Input !" }]}
-        >
-          <Select
-            showSearch
-            defaultValue={""}
-            placeholder="Select a distrist"
-            optionFilterProp="children"
-            onChange={onChangedistrict}
-            onSearch={onSearchdistrict}
-            filterOption={(input, option) => option.children.includes(input)}
-            filterSort={(optionA, optionB) =>
-              optionA.children
-                .toLowerCase()
-                .localeCompare(optionB.children.toLowerCase())
-            }
+        {loadingDistrict ? (
+          <LoadingClear />
+        ) : (
+          <Form.Item
+            name="districtT"
+            style={{ width: "100%" }}
+            label="District"
+            rules={[{ required: true, message: "Please Input !" }]}
           >
-            {districts === undefined
-              ? ""
-              : districts.map((district, key) => {
-                  return (
-                    <Option key={key} value={district.code}>
-                      {district.name}
-                    </Option>
-                  );
-                })}
-          </Select>
-        </Form.Item>
-      )}
+            <Select
+              showSearch
+              placeholder="Select a distrist"
+              optionFilterProp="children"
+              onChange={onChangedistrict}
+              onSearch={onSearchdistrict}
+              filterOption={(input, option) => option.children.includes(input)}
+              filterSort={(optionA, optionB) =>
+                optionA.children
+                  .toLowerCase()
+                  .localeCompare(optionB.children.toLowerCase())
+              }
+            >
+              {districts === undefined
+                ? ""
+                : districts.map((district, key) => {
+                    return (
+                      <Option key={key} value={district.code}>
+                        {district.name}
+                      </Option>
+                    );
+                  })}
+            </Select>
+          </Form.Item>
+        )}
 
-      {loadingCommune ? (
-        <LoadingClear />
-      ) : (
-        <Form.Item
-          name="communeT"
-          style={{ width: "100%" }}
-          label="Commune"
-          rules={[{ required: true, message: "Please Input !" }]}
-        >
-          <Select
-            showSearch
-            defaultValue={""}
-            placeholder="Select a distrist"
-            optionFilterProp="children"
-            onChange={onChangecommune}
-            onSearch={onSearchcommune}
-            filterOption={(input, option) => option.children.includes(input)}
-            filterSort={(optionA, optionB) =>
-              optionA.children
-                .toLowerCase()
-                .localeCompare(optionB.children.toLowerCase())
-            }
+        {loadingCommune ? (
+          <LoadingClear />
+        ) : (
+          <Form.Item
+            name="communeT"
+            style={{ width: "100%" }}
+            label="Commune"
+            rules={[{ required: true, message: "Please Input !" }]}
           >
-            {communes === undefined
-              ? ""
-              : communes.map((commune, key) => {
-                  return (
-                    <Option key={key} value={commune.code}>
-                      {commune.name}
-                    </Option>
-                  );
-                })}
-          </Select>
+            <Select
+              showSearch
+              placeholder="Select a distrist"
+              optionFilterProp="children"
+              value={commune}
+              onChange={onChangecommune}
+              onSearch={onSearchcommune}
+              filterOption={(input, option) => option.children.includes(input)}
+              filterSort={(optionA, optionB) =>
+                optionA.children
+                  .toLowerCase()
+                  .localeCompare(optionB.children.toLowerCase())
+              }
+            >
+              {communes === undefined
+                ? ""
+                : communes.map((commune, key) => {
+                    return (
+                      <Option key={key} value={commune.code}>
+                        {commune.name}
+                      </Option>
+                    );
+                  })}
+            </Select>
+          </Form.Item>
+        )}
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 16,
+          }}
+          s
+        >
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={loadingDistrict || loadingProvince || loadingCommune}
+          >
+            Submit
+          </Button>
         </Form.Item>
-      )}
+      </Form>
       {/* addresses */}
     </>
   );

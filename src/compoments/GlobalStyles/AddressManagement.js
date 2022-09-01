@@ -41,15 +41,23 @@ const AddressManagement = (props) => {
   }, []);
 
   const onChangeprovince = (value) => {
-    console.log(`selected ${value}`);
+    var provinceArrayO = [];
+    const length = value.length;
+    for (var i = 0; i < length; i++) {
+      var province = provinces.find((province) => {
+        return province.code === value[i];
+      });
+      provinceArrayO.push(province);
+    }
+    console.log(provinceArrayO);
+    var provinceArray = provinceArrayO.map((value) => {
+      return value.name;
+    });
+    console.log(provinceArray);
+    // var districtArray = [];
+    // var communeArray = [];
     setdistrictid(value);
     setcommunes([]);
-    // props.getAddress("");
-    // props.getDistrict("");
-  };
-
-  const onSearchprovince = (value) => {
-    console.log("search:", value);
   };
 
   useEffect(() => {
@@ -74,18 +82,21 @@ const AddressManagement = (props) => {
   //district
 
   const onChangedistrict = (value) => {
-    // var districtO = districts.filter((district) => {
-    //   return district.code === value;
-    // });
-    // setdistrict(districtO[0].name);
-    setcommunid(value);
     console.log(value);
-    // props.getAddress("");
-    // props.getDistrict(districtO[0]);
-  };
-
-  const onSearchdistrict = (value) => {
-    console.log("search:", value);
+    // var districtArrayO = [];
+    // const length = value.length;
+    // for (var i = 0; i < length; i++) {
+    //   var district = districts.find((district) => {
+    //     return district.code === value[i];
+    //   });
+    //   districtArrayO.push(district);
+    // }
+    // var districtArray = districtArrayO.map((value) => {
+    //   return value.name;
+    // });
+    // console.log(districtArray);
+    // // var communArray = [];
+    setcommunid(value);
   };
 
   useEffect(() => {
@@ -111,10 +122,6 @@ const AddressManagement = (props) => {
     console.log(value);
   };
 
-  const onSearchcommune = (value) => {
-    console.log(value);
-  };
-
   // adresses
 
   return (
@@ -129,7 +136,6 @@ const AddressManagement = (props) => {
             optionFilterProp="children"
             mode="multiple"
             onChange={onChangeprovince}
-            onSearch={onSearchprovince}
             filterOption={(input, option) => option.children.includes(input)}
             filterSort={(optionA, optionB) =>
               optionA.children
@@ -153,13 +159,12 @@ const AddressManagement = (props) => {
       {loadingDistrict ? (
         <LoadingClear />
       ) : (
-        <Form.Item name="dictrict" label="District" style={{ width: "100%" }}>
+        <Form.Item label="District" style={{ width: "100%" }}>
           <Select
             mode="multiple"
             placeholder="Select District"
             optionFilterProp="children"
             onChange={onChangedistrict}
-            onSearch={onSearchdistrict}
             filterOption={(input, option) => option.children.includes(input)}
             filterSort={(optionA, optionB) =>
               optionA.children
@@ -183,14 +188,13 @@ const AddressManagement = (props) => {
       {loadingCommune ? (
         <LoadingClear />
       ) : (
-        <Form.Item name="commune" style={{ width: "100%" }} label="Commune">
+        <Form.Item style={{ width: "100%" }} label="Commune">
           <Select
             mode="multiple"
             showSearch
             placeholder="Select communes"
             optionFilterProp="children"
             onChange={onChangecommune}
-            onSearch={onSearchcommune}
             filterOption={(input, option) => option.children.includes(input)}
             filterSort={(optionA, optionB) =>
               optionA.children
@@ -202,7 +206,7 @@ const AddressManagement = (props) => {
               ? ""
               : communes.map((commune, key) => {
                   return (
-                    <Option key={key} value={commune.code}>
+                    <Option key={key} value={commune.name}>
                       {commune.name}
                     </Option>
                   );

@@ -124,7 +124,6 @@ const Test = (props) => {
     });
     console.log(communsO[0]);
     setcommune(communsO[0].name);
-
     var addresscode = communsO[0];
     // delete addresscode.code;
     setaddress(addresscode);
