@@ -43,9 +43,10 @@ const AddressManagement = (props) => {
   const onChangeprovince = (value) => {
     var provinceArrayO = [];
     const length = value.length;
-    for (var i = 0; i < length; i++) {
+
+    for (let i = 0; i < length; i++) {
       var province = provinces.find((province) => {
-        return province.code === value[i];
+        return province.code === value?.[i];
       });
       provinceArrayO.push(province);
     }
@@ -54,8 +55,6 @@ const AddressManagement = (props) => {
       return value.name;
     });
     console.log(provinceArray);
-    // var districtArray = [];
-    // var communeArray = [];
     setdistrictid(value);
     setcommunes([]);
   };
