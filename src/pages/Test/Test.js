@@ -175,9 +175,10 @@ const Test = (props) => {
         {loadingDistrict ? <LoadingDistrict /> : ""}
         <p>*</p>
         <Form.Item
+          // name={"district"}
           style={{ width: "100%" }}
           label="District"
-          rules={[{ required: true }]}
+          rules={[{ required: true, message: "sasdasd" }]}
         >
           <Select
             value={district}

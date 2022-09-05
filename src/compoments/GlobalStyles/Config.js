@@ -11,6 +11,7 @@ function Config() {
         {
           required: true,
           message: "Please select your country!",
+          whitespace: true,
         },
       ]}
     >

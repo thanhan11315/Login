@@ -1,5 +1,3 @@
-const refreshPage = () =>{
-  
-}
+const refreshPage = () => {};
 
-refreshPage()
+refreshPage();

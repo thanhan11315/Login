@@ -9,6 +9,7 @@ function Phone() {
         {
           required: true,
           message: "Please input your phone number!",
+          whitespace: true,
         },
         {
           type: "string",

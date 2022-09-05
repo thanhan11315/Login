@@ -1,22 +1,49 @@
-import { Form, InputNumber, Space } from "antd";
+import { Form, Space } from "antd";
+import Input from "antd/lib/input/Input";
 import { useState } from "react";
+
+const maxThuHo = 20000000;
 
 function Amount(prosp) {
   const [valueP, setValueP] = useState("");
   const [amountValue, setAmountValue] = useState("");
 
-  const onChangeAmount = (value) => {
-    console.log("changed", value);
-    setAmountValue(value);
-    setValueP(value);
-    prosp.getAmount(value);
-    prosp.getValue(value);
+  const handleChangeAmount = (e) => {
+    const { value: inputValue } = e.target;
+    const numberParsed = String(inputValue).replaceAll(",", "");
+    const isValidNumber =
+      Number(numberParsed) >= 0 && Number(numberParsed) <= maxThuHo;
+    if (isValidNumber) {
+      const valueConverted = inputValue
+        .replace(/\$\s?|(,*)/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        .replace(/\s/g, "");
+      setAmountValue(valueConverted);
+      setValueP(valueConverted);
+      prosp.getValue(valueConverted.replaceAll(",", ""));
+      prosp.getAmount(valueConverted);
+    } else {
+      console.log("Nhap Khong Dung");
+    }
   };
 
-  const onChangeValue = (value) => {
-    console.log("change", value);
-    setValueP(value);
-    prosp.getValue(value);
+  const handleChangeValueP = (e) => {
+    const { value: inputValue } = e.target;
+    const numberParsed = String(inputValue).replaceAll(",", "");
+    const isValidNumber =
+      Number(numberParsed) >= 0 &&
+      Number(numberParsed) <= maxThuHo &&
+      numberParsed !== " ";
+    if (isValidNumber) {
+      const valueConverted = inputValue
+        .replace(/\$\s?|(,*)/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        .replace(/\s/g, "");
+      setValueP(valueConverted);
+      prosp.getValue(valueConverted.replaceAll(",", ""));
+    } else {
+      console.log("Nhap Khong Dung");
+    }
   };
 
   return (
@@ -28,37 +55,25 @@ function Amount(prosp) {
           {
             required: true,
             message: "Please input !",
+            whitespace: true,
           },
         ]}
       >
         <Space style={{ width: "100%" }}>
-          <InputNumber
+          <Input
             value={amountValue}
-            min={0}
-            max={30000000}
-            defaultValue={""}
-            formatter={(value) =>
-              `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            }
-            parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-            onChange={onChangeAmount}
-            style={{ width: "100%" }}
+            onChange={handleChangeAmount}
+            placeholder="Input a number"
           />
         </Space>
       </Form.Item>
       <Form.Item name="Value" label="Giá trị đơn hàng">
         <Space style={{ width: "100%" }}>
-          <InputNumber
-            min={0}
-            max={30000000}
-            defaultValue={""}
-            formatter={(value) =>
-              `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-            }
-            parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+          {" "}
+          <Input
             value={valueP}
-            onChange={onChangeValue}
-            style={{ width: "100%" }}
+            onChange={handleChangeValueP}
+            placeholder="Input a number"
           />
         </Space>
         <div

@@ -82,19 +82,19 @@ const AddressManagement = (props) => {
 
   const onChangedistrict = (value) => {
     console.log(value);
-    // var districtArrayO = [];
-    // const length = value.length;
-    // for (var i = 0; i < length; i++) {
-    //   var district = districts.find((district) => {
-    //     return district.code === value[i];
-    //   });
-    //   districtArrayO.push(district);
-    // }
-    // var districtArray = districtArrayO.map((value) => {
-    //   return value.name;
-    // });
-    // console.log(districtArray);
-    // // var communArray = [];
+    var districtArrayO = [];
+    const length = value.length;
+    for (let i = 0; i < length; i++) {
+      var district = districts.find((district) => {
+        return district.code === value[i];
+      });
+      districtArrayO.push(district);
+    }
+    var districtArray = districtArrayO.map((value) => {
+      return value.name;
+    });
+    console.log(districtArray);
+    // var communArray = [];
     setcommunid(value);
   };
 

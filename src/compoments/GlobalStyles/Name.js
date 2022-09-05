@@ -9,6 +9,7 @@ function Name() {
         {
           required: true,
           message: "Please input!",
+          whitespace: true,
         },
       ]}
     >

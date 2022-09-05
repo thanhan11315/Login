@@ -9,6 +9,7 @@ function Address() {
         {
           required: true,
           message: "Please input!",
+          whitespace: true,
         },
       ]}
     >

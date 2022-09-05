@@ -1,6 +1,5 @@
 import { Form, Input } from "antd";
 
-
 function Contact() {
   return (
     <Form.Item
@@ -10,6 +9,7 @@ function Contact() {
         {
           required: true,
           message: "Please input!",
+          whitespace: true,
         },
       ]}
     >
