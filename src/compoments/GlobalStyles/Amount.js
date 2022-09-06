@@ -2,17 +2,16 @@ import { Form, Space } from "antd";
 import Input from "antd/lib/input/Input";
 import { useState } from "react";
 
-const maxThuHo = 20000000;
+const maxAmount = 20000000;
 
 function Amount(prosp) {
   const [valueP, setValueP] = useState("");
   const [amountValue, setAmountValue] = useState("");
-
   const handleChangeAmount = (e) => {
     const { value: inputValue } = e.target;
     const numberParsed = String(inputValue).replaceAll(",", "");
     const isValidNumber =
-      Number(numberParsed) >= 0 && Number(numberParsed) <= maxThuHo;
+      Number(numberParsed) >= 0 && Number(numberParsed) <= maxAmount;
     if (isValidNumber) {
       const valueConverted = inputValue
         .replace(/\$\s?|(,*)/g, "")
@@ -32,7 +31,7 @@ function Amount(prosp) {
     const numberParsed = String(inputValue).replaceAll(",", "");
     const isValidNumber =
       Number(numberParsed) >= 0 &&
-      Number(numberParsed) <= maxThuHo &&
+      Number(numberParsed) <= maxAmount &&
       numberParsed !== " ";
     if (isValidNumber) {
       const valueConverted = inputValue

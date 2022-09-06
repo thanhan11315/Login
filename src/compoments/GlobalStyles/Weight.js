@@ -1,19 +1,32 @@
-import { Form, InputNumber, Space } from "antd";
+import { Form, Input, Space } from "antd";
 import { useEffect, useState } from "react";
 
-function Weight(getWeight) {
+function Weight(prosp) {
   const [required, setrequired] = useState(false);
-
-  const onChange = (value) => {
-    console.log("change", value);
-    getWeight.getWeight(value);
-    if (!value) {
+  const [weightValue, setWeightValue] = useState("500");
+  const maxWeight = 20000;
+  const onChange = (e) => {
+    const { value: inputValue } = e.target;
+    if (!inputValue) {
       setrequired(true);
+    }
+    const numberParsed = String(inputValue).replaceAll(",", "");
+    const isValidNumber =
+      Number(numberParsed) >= 0 && Number(numberParsed) <= maxWeight;
+    if (isValidNumber) {
+      const valueConverted = inputValue
+        .replace(/\$\s?|(,*)/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        .replace(/\s/g, "");
+      setWeightValue(valueConverted);
+      prosp.getWeight(valueConverted.replaceAll(",", ""));
+    } else {
+      console.log("Nhap Khong Dung");
     }
   };
 
   useEffect(() => {
-    getWeight.getWeight(500);
+    prosp.getWeight(500);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -24,19 +37,15 @@ function Weight(getWeight) {
         {
           required: required,
           message: "Please input !",
+          whitespace: true,
         },
       ]}
     >
       <Space style={{ width: "100%" }}>
-        <InputNumber
-          min={1}
-          max={50000}
-          defaultValue={500}
-          formatter={(value) =>
-            `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-          }
-          parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+        <Input
+          value={weightValue}
           onChange={onChange}
+          placeholder="Input a number"
           style={{ width: "100%" }}
         />
       </Space>
